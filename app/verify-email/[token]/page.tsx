@@ -34,9 +34,14 @@ function VerifyEmailTokenContent() {
 
       if (response.success) {
         setIsVerified(true)
-        // Optionally extract email from response if available
-        if (response.user?.email) {
-          setUserEmail(response.user.email)
+        // Optionally extract email from response data if available
+        if (response.data && typeof response.data === 'object' && 'email' in response.data) {
+          setUserEmail((response.data as { email: string }).email)
+        } else if (response.data && typeof response.data === 'object' && 'user' in response.data) {
+          const user = (response.data as { user: { email: string } }).user
+          if (user?.email) {
+            setUserEmail(user.email)
+          }
         }
       } else {
         setError(response.message || 'Invalid or expired verification link. Please request a new one.')

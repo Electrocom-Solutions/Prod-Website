@@ -249,9 +249,10 @@ function CustomDatePicker({ id, name, value, minDate, onChange, required }: Cust
   }
 
   const isDateDisabled = (date: Date): boolean => {
-    if (minDateObj) {
+    if (minDateObj && minDate) {
       const dateStr = formatDate(date)
-      return dateStr < minDate
+      const minDateStr = formatDate(minDateObj)
+      return dateStr < minDateStr
     }
     return false
   }

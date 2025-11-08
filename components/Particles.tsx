@@ -133,15 +133,13 @@ const Particles: React.FC<ParticlesProps> = ({
     ensureDimensions()
 
     let renderer: Renderer
-    let gl: WebGLRenderingContext | WebGL2RenderingContext
     let camera: Camera
 
     try {
       renderer = new Renderer({ depth: false, alpha: true })
-      gl = renderer.gl
 
       // Check if WebGL is actually supported
-      if (!gl) {
+      if (!renderer.gl) {
         throw new Error('WebGL is not supported')
       }
     } catch (error) {
@@ -153,21 +151,31 @@ const Particles: React.FC<ParticlesProps> = ({
       return
     }
     
+    const gl = renderer.gl
+    
     // Ensure canvas is properly styled for mobile
-    gl.canvas.style.display = 'block'
-    gl.canvas.style.width = '100%'
-    gl.canvas.style.height = '100%'
-    gl.canvas.style.position = 'absolute'
-    gl.canvas.style.top = '0'
-    gl.canvas.style.left = '0'
-    gl.canvas.style.pointerEvents = 'none'
-    gl.canvas.style.touchAction = 'none'
+    // Check if canvas is HTMLCanvasElement (not OffscreenCanvas) before accessing style
+    if (gl.canvas instanceof HTMLCanvasElement) {
+      gl.canvas.style.display = 'block'
+      gl.canvas.style.width = '100%'
+      gl.canvas.style.height = '100%'
+      gl.canvas.style.position = 'absolute'
+      gl.canvas.style.top = '0'
+      gl.canvas.style.left = '0'
+      gl.canvas.style.pointerEvents = 'none'
+      gl.canvas.style.touchAction = 'none'
+    }
     
     try {
-      container.appendChild(gl.canvas)
+      // Only append if it's an HTMLCanvasElement
+      if (gl.canvas instanceof HTMLCanvasElement) {
+        container.appendChild(gl.canvas)
+      } else {
+        throw new Error('Canvas is not an HTMLCanvasElement')
+      }
       gl.clearColor(0, 0, 0, 0)
 
-      camera = new Camera(gl, { fov: 15 })
+      camera = new Camera(renderer.gl, { fov: 15 })
       camera.position.set(0, 0, cameraDistance)
     } catch (error) {
       console.error('Particles: Failed to setup canvas or camera:', error)

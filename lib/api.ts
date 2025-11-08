@@ -467,8 +467,8 @@ export const portfolioAPI = {
       const response = await apiRequest<{ clients: ClientSlideData[] }>('/portfolio/clients/', {
         method: 'GET',
       });
-      if (response.success && response.clients) {
-        return { success: true, clients: response.clients };
+      if (response.success && response.data?.clients) {
+        return { success: true, clients: response.data.clients };
       }
       return { success: false, clients: [] };
     } catch (error) {
@@ -482,8 +482,8 @@ export const portfolioAPI = {
       const response = await apiRequest<{ statistics: StatisticTileData[] }>('/portfolio/statistics/', {
         method: 'GET',
       });
-      if (response.success && response.statistics) {
-        return { success: true, statistics: response.statistics };
+      if (response.success && response.data?.statistics) {
+        return { success: true, statistics: response.data.statistics };
       }
       return { success: false, statistics: [] };
     } catch (error) {
@@ -497,8 +497,8 @@ export const portfolioAPI = {
       const response = await apiRequest<{ projects: ProjectData[] }>('/portfolio/projects/', {
         method: 'GET',
       });
-      if (response.success && response.projects) {
-        return { success: true, projects: response.projects };
+      if (response.success && response.data?.projects) {
+        return { success: true, projects: response.data.projects };
       }
       return { success: false, projects: [] };
     } catch (error) {
