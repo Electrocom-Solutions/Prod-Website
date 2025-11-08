@@ -33,13 +33,15 @@ npm install
 2. Set up environment variables:
 ```bash
 # Create a .env.local file in the Website directory
-cp .env.local.example .env.local
+touch .env.local
 ```
 
 Edit `.env.local` and set your backend API URL:
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
-NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api
-```
+
+**Note:** The `/api` path is automatically appended, so you only need to provide the base URL.
 
 3. Run the development server:
 ```bash
@@ -48,7 +50,16 @@ npm run dev
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-**Note:** Make sure your Django backend is running on `http://localhost:8000` for the API integration to work.
+**Note:** Make sure your Django backend is running on `http://localhost:8000` for the API integration to work. The API client automatically appends `/api` to the base URL.
+
+## Environment Variables
+
+The application uses `NEXT_PUBLIC_API_URL` to determine the backend API URL. 
+
+- **Local Development:** Set to `http://localhost:8000` (defaults to this if not set)
+- **Production:** Set to your production API URL (e.g., `https://api.electrocomsolutions.in`)
+
+See [ENV_SETUP.md](./ENV_SETUP.md) for detailed configuration instructions.
 
 ## Build for Production
 

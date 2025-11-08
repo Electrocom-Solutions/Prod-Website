@@ -1,8 +1,44 @@
 /**
  * API Utility for making HTTP requests to the backend
+ * 
+ * Uses NEXT_PUBLIC_API_URL environment variable for the base API URL.
+ * If not set, defaults to http://localhost:8000/api for local development.
+ * 
+ * The API URL should be the base URL without trailing slashes.
+ * The '/api' path will be automatically appended if not already present.
  */
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000/api';
+function getApiBaseUrl(): string {
+  const envUrl = process.env.NEXT_PUBLIC_API_URL;
+  
+  // If environment variable is set
+  if (envUrl) {
+    // Remove trailing slash if present
+    const cleanUrl = envUrl.trim().replace(/\/+$/, '');
+    // Append /api if not already present
+    if (cleanUrl.endsWith('/api')) {
+      const finalUrl = cleanUrl;
+      if (typeof window !== 'undefined') {
+        console.log('[API] Using API URL from environment:', finalUrl);
+      }
+      return finalUrl;
+    }
+    const finalUrl = `${cleanUrl}/api`;
+    if (typeof window !== 'undefined') {
+      console.log('[API] Using API URL from environment (with /api appended):', finalUrl);
+    }
+    return finalUrl;
+  }
+  
+  // Default to localhost for development
+  const defaultUrl = 'http://localhost:8000/api';
+  if (typeof window !== 'undefined') {
+    console.warn('[API] NEXT_PUBLIC_API_URL not set, using default:', defaultUrl);
+  }
+  return defaultUrl;
+}
+
+const API_BASE_URL = getApiBaseUrl();
 
 interface ApiResponse<T = any> {
   success: boolean;
@@ -47,7 +83,9 @@ async function apiRequest<T = any>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<ApiResponse<T>> {
-  const url = `${API_BASE_URL}${endpoint}`;
+  // Ensure endpoint starts with /
+  const normalizedEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  const url = `${API_BASE_URL}${normalizedEndpoint}`;
 
   // Get CSRF token for POST/PUT/DELETE/PATCH requests
   const method = options.method || 'GET';
@@ -55,6 +93,11 @@ async function apiRequest<T = any>(
   
   if (needsCsrf && !csrfToken) {
     csrfToken = await getCsrfToken();
+  }
+  
+  // Log API request in development
+  if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+    console.log(`[API] ${method} ${url}`);
   }
 
   const defaultHeaders: HeadersInit = {
@@ -76,26 +119,23 @@ async function apiRequest<T = any>(
   };
 
   try {
-    console.log('Making API request to:', url);
     let response = await fetch(url, config);
     
-    console.log('API response status:', response.status, response.statusText);
-    console.log('API response ok:', response.ok);
+    // Log response status in development
+    if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+      console.log(`[API] ${method} ${url} - Status: ${response.status} ${response.statusText}`);
+    }
     
     // Read response as text first (we can only read the body once)
     let responseText = await response.text();
-    console.log('API response text (raw):', responseText);
     
     let data: any = {};
     if (responseText) {
       try {
         // Try to parse as JSON
         data = JSON.parse(responseText);
-        console.log('API response data (parsed JSON):', data);
       } catch (jsonError) {
         // If response is not JSON, create error response with the text
-        console.error('Failed to parse JSON response:', jsonError);
-        console.error('Response text:', responseText);
         
         // Check if it's a CSRF error even though it's not JSON
         const isCsrfErrorText = responseText.includes('CSRF') || responseText.includes('csrf');
@@ -153,13 +193,11 @@ async function apiRequest<T = any>(
     );
     
     if (isCsrfError) {
-      console.log('CSRF token error detected, refreshing token...');
       csrfToken = null; // Clear cached token
       csrfToken = await getCsrfToken(); // Get new token
       
       if (csrfToken) {
         // Retry the request with new token
-        console.log('Retrying request with new CSRF token...');
         const retryHeaders: HeadersInit = {
           'Content-Type': 'application/json',
           'X-CSRFToken': csrfToken,
@@ -200,12 +238,6 @@ async function apiRequest<T = any>(
     }
 
     if (!response.ok) {
-      console.error('API error response:', {
-        status: response.status,
-        statusText: response.statusText,
-        data: data,
-      });
-      
       // Handle different error response formats
       let errors = {};
       let message = '';
@@ -253,6 +285,16 @@ async function apiRequest<T = any>(
   } catch (error: any) {
     console.error('API request error:', error);
     console.error('Error stack:', error.stack);
+    // Log error in development
+    if (typeof window !== 'undefined') {
+      console.error('[API] Request failed:', {
+        url,
+        method,
+        error: error.message,
+        stack: error.stack,
+      });
+    }
+    
     return {
       success: false,
       errors: {
@@ -467,8 +509,9 @@ export const portfolioAPI = {
       const response = await apiRequest<{ clients: ClientSlideData[] }>('/portfolio/clients/', {
         method: 'GET',
       });
-      if (response.success && response.data?.clients) {
-        return { success: true, clients: response.data.clients };
+      // Backend returns {success: true, clients: [...]} directly, not nested in data
+      if (response.success && (response as any).clients && Array.isArray((response as any).clients)) {
+        return { success: true, clients: (response as any).clients };
       }
       return { success: false, clients: [] };
     } catch (error) {
@@ -482,8 +525,9 @@ export const portfolioAPI = {
       const response = await apiRequest<{ statistics: StatisticTileData[] }>('/portfolio/statistics/', {
         method: 'GET',
       });
-      if (response.success && response.data?.statistics) {
-        return { success: true, statistics: response.data.statistics };
+      // Backend returns {success: true, statistics: [...]} directly, not nested in data
+      if (response.success && (response as any).statistics && Array.isArray((response as any).statistics)) {
+        return { success: true, statistics: (response as any).statistics };
       }
       return { success: false, statistics: [] };
     } catch (error) {
@@ -497,8 +541,9 @@ export const portfolioAPI = {
       const response = await apiRequest<{ projects: ProjectData[] }>('/portfolio/projects/', {
         method: 'GET',
       });
-      if (response.success && response.data?.projects) {
-        return { success: true, projects: response.data.projects };
+      // Backend returns {success: true, projects: [...]} directly, not nested in data
+      if (response.success && (response as any).projects && Array.isArray((response as any).projects)) {
+        return { success: true, projects: (response as any).projects };
       }
       return { success: false, projects: [] };
     } catch (error) {
