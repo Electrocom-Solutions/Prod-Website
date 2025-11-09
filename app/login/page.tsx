@@ -288,14 +288,14 @@ function LoginContent() {
                     </div>
                   )}
                   
-                  <div className="flex flex-col sm:flex-row gap-2 justify-center">
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3">
                     <Link
                       href={`/verify-email?email=${encodeURIComponent(userEmail)}`}
-                      className="text-sm font-semibold text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors underline"
+                      className="text-sm font-semibold text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors underline inline-flex items-center"
                     >
                       Verify Email
                     </Link>
-                    <span className="text-yellow-700 dark:text-yellow-400 hidden sm:inline">|</span>
+                    <span className="text-yellow-700 dark:text-yellow-400 hidden sm:inline-block self-center">|</span>
                     <button
                       type="button"
                       onClick={async () => {
@@ -331,7 +331,7 @@ function LoginContent() {
                         }
                       }}
                       disabled={isResending || !userEmail}
-                      className="text-sm font-semibold text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors underline disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1 mx-auto"
+                      className="text-sm font-semibold text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors underline disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-1"
                     >
                       {isResending ? (
                         <>

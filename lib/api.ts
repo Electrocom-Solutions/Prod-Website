@@ -33,9 +33,19 @@ function getApiBaseUrl(): string {
   }
   
   // Default to localhost for development
+  // In production, this should never be reached if NEXT_PUBLIC_API_URL is set correctly
   const defaultUrl = 'http://localhost:8000/api';
   if (typeof window !== 'undefined') {
-    console.warn('[API] NEXT_PUBLIC_API_URL not set, using default:', defaultUrl);
+    // Check if we're in production (hosted on vercel/domain) but using localhost
+    const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+    if (isProduction) {
+      console.error('[API] ERROR: NEXT_PUBLIC_API_URL is not set in production!');
+      console.error('[API] Please set NEXT_PUBLIC_API_URL=https://api.electrocomsolutions.in in Vercel environment variables');
+      console.error('[API] Current hostname:', window.location.hostname);
+      console.error('[API] Falling back to localhost (this will fail):', defaultUrl);
+    } else {
+      console.warn('[API] NEXT_PUBLIC_API_URL not set, using default for development:', defaultUrl);
+    }
   }
   return defaultUrl;
 }
