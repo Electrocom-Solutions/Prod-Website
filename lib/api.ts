@@ -9,10 +9,12 @@
  */
 
 function getApiBaseUrl(): string {
-  const envUrl = process.env.NEXT_PUBLIC_API_URL;
+  // Only access process.env on client side or during build
+  // In Next.js, process.env.NEXT_PUBLIC_* variables are available at build time
+  const envUrl = typeof process !== 'undefined' && process.env ? process.env.NEXT_PUBLIC_API_URL : undefined;
   
   // If environment variable is set
-  if (envUrl) {
+  if (envUrl && typeof envUrl === 'string') {
     // Remove trailing slash if present
     const cleanUrl = envUrl.trim().replace(/\/+$/, '');
     // Append /api if not already present
@@ -351,6 +353,8 @@ export interface UserData {
   last_name: string;
   full_name: string;
   email_verified?: boolean;
+  is_superuser?: boolean;
+  is_staff?: boolean;
 }
 
 export interface LoginResponse extends ApiResponse {
