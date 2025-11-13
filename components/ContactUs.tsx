@@ -96,7 +96,7 @@ export default function ContactUs() {
       setSubmitStatus('error')
       setErrorMessage('Network error. Please check your connection and try again.')
     } finally {
-      setIsSubmitting(false)
+    setIsSubmitting(false)
     }
   }
 

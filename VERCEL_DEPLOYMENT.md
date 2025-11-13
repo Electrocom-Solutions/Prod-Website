@@ -95,3 +95,6 @@ After setting the environment variable and redeploying:
 - [Vercel Environment Variables Documentation](https://vercel.com/docs/concepts/projects/environment-variables)
 - [Next.js Environment Variables](https://nextjs.org/docs/basic-features/environment-variables)
 
+
+
+

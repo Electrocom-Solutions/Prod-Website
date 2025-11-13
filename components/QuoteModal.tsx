@@ -280,7 +280,7 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
       console.error('Error submitting quote request:', error)
       setError('Network error. Please check your connection and try again.')
     } finally {
-      setIsSubmitting(false)
+    setIsSubmitting(false)
     }
   }
 
@@ -526,15 +526,15 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                       Service Required <span className="text-red-500">*</span>
                     </label>
                     <div className={fieldErrors['service_required'] ? 'border-2 border-red-500 dark:border-red-500 rounded-xl' : ''}>
-                      <CustomDropdown
-                        id="serviceRequired"
-                        name="serviceRequired"
-                        value={formData.serviceRequired}
-                        options={serviceOptions}
-                        placeholder="Select a service"
-                        onChange={handleServiceChange}
-                        required
-                      />
+                    <CustomDropdown
+                      id="serviceRequired"
+                      name="serviceRequired"
+                      value={formData.serviceRequired}
+                      options={serviceOptions}
+                      placeholder="Select a service"
+                      onChange={handleServiceChange}
+                      required
+                    />
                     </div>
                     {fieldErrors['service_required'] && (
                       <p className="mt-1 text-xs text-red-500 dark:text-red-400">{fieldErrors['service_required']}</p>

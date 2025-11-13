@@ -186,7 +186,7 @@ export default function Statistics() {
             ))}
           </div>
         ) : (
-          <div className={`grid md:grid-cols-3 gap-8 lg:gap-12 ${isVisible ? 'animate-fade-in' : ''}`}>
+        <div className={`grid md:grid-cols-3 gap-8 lg:gap-12 ${isVisible ? 'animate-fade-in' : ''}`}>
             {displayStats.map((stat, index) => (
             <div
               key={index}
@@ -211,7 +211,7 @@ export default function Statistics() {
               </div>
             </div>
           ))}
-          </div>
+        </div>
         )}
       </div>
     </section>

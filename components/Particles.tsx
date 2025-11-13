@@ -156,27 +156,27 @@ const Particles: React.FC<ParticlesProps> = ({
     // Ensure canvas is properly styled for mobile
     // Check if canvas is HTMLCanvasElement (not OffscreenCanvas) before accessing style
     if (gl.canvas instanceof HTMLCanvasElement) {
-      gl.canvas.style.display = 'block'
-      gl.canvas.style.width = '100%'
-      gl.canvas.style.height = '100%'
-      gl.canvas.style.position = 'absolute'
-      gl.canvas.style.top = '0'
-      gl.canvas.style.left = '0'
-      gl.canvas.style.pointerEvents = 'none'
-      gl.canvas.style.touchAction = 'none'
+    gl.canvas.style.display = 'block'
+    gl.canvas.style.width = '100%'
+    gl.canvas.style.height = '100%'
+    gl.canvas.style.position = 'absolute'
+    gl.canvas.style.top = '0'
+    gl.canvas.style.left = '0'
+    gl.canvas.style.pointerEvents = 'none'
+    gl.canvas.style.touchAction = 'none'
     }
     
     try {
       // Only append if it's an HTMLCanvasElement
       if (gl.canvas instanceof HTMLCanvasElement) {
-        container.appendChild(gl.canvas)
+    container.appendChild(gl.canvas)
       } else {
         throw new Error('Canvas is not an HTMLCanvasElement')
       }
-      gl.clearColor(0, 0, 0, 0)
+    gl.clearColor(0, 0, 0, 0)
 
       camera = new Camera(renderer.gl, { fov: 15 })
-      camera.position.set(0, 0, cameraDistance)
+    camera.position.set(0, 0, cameraDistance)
     } catch (error) {
       console.error('Particles: Failed to setup canvas or camera:', error)
       if (onLoadError) {
@@ -215,7 +215,7 @@ const Particles: React.FC<ParticlesProps> = ({
         const width = container.clientWidth || window.innerWidth
         const height = container.clientHeight || window.innerHeight
         if (width > 0 && height > 0 && renderer && camera) {
-          resize()
+    resize()
         } else {
           // Retry once more
           setTimeout(resize, 100)
@@ -304,24 +304,24 @@ const Particles: React.FC<ParticlesProps> = ({
 
     try {
       geometry = new Geometry(gl, {
-        position: { size: 3, data: positions },
-        random: { size: 4, data: randoms },
-        color: { size: 3, data: colors }
-      })
+      position: { size: 3, data: positions },
+      random: { size: 4, data: randoms },
+      color: { size: 3, data: colors }
+    })
 
       program = new Program(gl, {
-        vertex,
-        fragment,
-        uniforms: {
-          uTime: { value: 0 },
-          uSpread: { value: particleSpread },
-          uBaseSize: { value: particleBaseSize },
-          uSizeRandomness: { value: sizeRandomness },
-          uAlphaParticles: { value: alphaParticles ? 1 : 0 }
-        },
-        transparent: true,
-        depthTest: false
-      })
+      vertex,
+      fragment,
+      uniforms: {
+        uTime: { value: 0 },
+        uSpread: { value: particleSpread },
+        uBaseSize: { value: particleBaseSize },
+        uSizeRandomness: { value: sizeRandomness },
+        uAlphaParticles: { value: alphaParticles ? 1 : 0 }
+      },
+      transparent: true,
+      depthTest: false
+    })
 
       particles = new Mesh(gl, { mode: gl.POINTS, geometry, program })
     } catch (error) {
@@ -343,29 +343,29 @@ const Particles: React.FC<ParticlesProps> = ({
       try {
         if (!renderer || !camera || !particles || !program) return
         
-        animationFrameId = requestAnimationFrame(update)
-        const delta = t - lastTime
-        lastTime = t
-        elapsed += delta * speed
+      animationFrameId = requestAnimationFrame(update)
+      const delta = t - lastTime
+      lastTime = t
+      elapsed += delta * speed
         if (program && program.uniforms && program.uniforms.uTime) {
-          program.uniforms.uTime.value = elapsed * 0.001
+      program.uniforms.uTime.value = elapsed * 0.001
         }
 
-        if (moveParticlesOnHover) {
-          particles.position.x = -mouseRef.current.x * particleHoverFactor
-          particles.position.y = -mouseRef.current.y * particleHoverFactor
-        } else {
-          particles.position.x = 0
-          particles.position.y = 0
-        }
+      if (moveParticlesOnHover) {
+        particles.position.x = -mouseRef.current.x * particleHoverFactor
+        particles.position.y = -mouseRef.current.y * particleHoverFactor
+      } else {
+        particles.position.x = 0
+        particles.position.y = 0
+      }
 
-        if (!disableRotation) {
-          particles.rotation.x = Math.sin(elapsed * 0.0002) * 0.1
-          particles.rotation.y = Math.cos(elapsed * 0.0005) * 0.15
-          particles.rotation.z += 0.01 * speed
-        }
+      if (!disableRotation) {
+        particles.rotation.x = Math.sin(elapsed * 0.0002) * 0.1
+        particles.rotation.y = Math.cos(elapsed * 0.0005) * 0.15
+        particles.rotation.z += 0.01 * speed
+      }
 
-        renderer.render({ scene: particles, camera })
+      renderer.render({ scene: particles, camera })
         
         // Mark as successfully initialized after first render
         if (!hasRendered) {
@@ -408,7 +408,7 @@ const Particles: React.FC<ParticlesProps> = ({
     }, 3000) // 3 second timeout
 
     try {
-      animationFrameId = requestAnimationFrame(update)
+    animationFrameId = requestAnimationFrame(update)
     } catch (error) {
       if (initTimeout) {
         clearTimeout(initTimeout)
@@ -436,7 +436,7 @@ const Particles: React.FC<ParticlesProps> = ({
         container.removeEventListener('touchmove', handleMouseMove)
       }
       if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId)
+      cancelAnimationFrame(animationFrameId)
       }
       if (gl && gl.canvas && container.contains(gl.canvas)) {
         container.removeChild(gl.canvas)

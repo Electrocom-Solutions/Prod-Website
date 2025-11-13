@@ -174,9 +174,9 @@ export default function PastProjects() {
 
         <div className={`${isVisible ? 'animate-fade-in' : ''}`}>
           {projects.length > 0 ? (
-            <div style={{ height: '600px', position: 'relative' }} className="rounded-3xl overflow-hidden backdrop-blur-xl bg-white/5 dark:bg-gray-800/5 border-2 border-white/10 dark:border-gray-700/20 backdrop-saturate-150">
-              <InfiniteMenu items={projects} />
-            </div>
+          <div style={{ height: '600px', position: 'relative' }} className="rounded-3xl overflow-hidden backdrop-blur-xl bg-white/5 dark:bg-gray-800/5 border-2 border-white/10 dark:border-gray-700/20 backdrop-saturate-150">
+            <InfiniteMenu items={projects} />
+          </div>
           ) : (
             <div style={{ height: '600px', position: 'relative' }} className="rounded-3xl overflow-hidden backdrop-blur-xl bg-white/5 dark:bg-gray-800/5 border-2 border-white/10 dark:border-gray-700/20 backdrop-saturate-150 flex items-center justify-center">
               <div className="text-white text-lg">No projects available</div>

@@ -54,21 +54,21 @@ export default function SectionParticles({ particleCount = 150, className = '' }
         className="absolute inset-0 w-full h-full"
         style={{ zIndex: 2 }}
       >
-        <Particles
+      <Particles
           particleColors={PARTICLE_COLORS}
           particleCount={actualParticleCount}
-          particleSpread={10}
-          speed={0.08}
-          particleBaseSize={70}
-          moveParticlesOnHover={true}
-          particleHoverFactor={2}
-          alphaParticles={true}
-          disableRotation={false}
-          useWindowEvents={true}
+        particleSpread={10}
+        speed={0.08}
+        particleBaseSize={70}
+        moveParticlesOnHover={true}
+        particleHoverFactor={2}
+        alphaParticles={true}
+        disableRotation={false}
+        useWindowEvents={true}
           className="opacity-60"
           onLoadSuccess={handleLoadSuccess}
           onLoadError={handleLoadError}
-        />
+      />
       </div>
     </div>
   )

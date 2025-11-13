@@ -136,7 +136,7 @@ function LoginContent() {
           userData.full_name || `${userData.first_name} ${userData.last_name}`.trim() || userData.email.split('@')[0], 
           userData
         )
-        
+    
         // Set flag to prevent auto-redirect from overwriting our success redirect
         setJustLoggedIn(true)
         

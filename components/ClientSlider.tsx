@@ -118,10 +118,10 @@ export default function ClientSlider() {
       if (!slider) {
         // Retry if slider isn't ready yet
         setTimeout(initializeAndStart, 100)
-        return
-      }
+      return
+    }
 
-      const animate = () => {
+    const animate = () => {
         const slider = sliderRef.current
         if (!slider || clients.length === 0 || isHovered || isDragging) {
           if (animationRef.current) {
@@ -143,7 +143,7 @@ export default function ClientSlider() {
 
         const singleSetWidth = singleSetWidthRef.current
         const currentScroll = slider.scrollLeft
-
+      
         // Ensure we have valid dimensions
         if (singleSetWidth <= 0) {
           animationRef.current = requestAnimationFrame(animate)
@@ -157,19 +157,19 @@ export default function ClientSlider() {
         if (currentScroll >= secondSetEnd - scrollSpeed.current) {
           // Reset to the start of the second set
           slider.scrollLeft = secondSetStart
-        } else {
+      } else {
           // Continue scrolling forward
           slider.scrollLeft += scrollSpeed.current
-        }
-
+      }
+      
         // Continue animation loop
         animationRef.current = requestAnimationFrame(animate)
       }
 
       const startAnimation = () => {
         if (!isHovered && !isDragging && clients.length > 0) {
-          animationRef.current = requestAnimationFrame(animate)
-        }
+      animationRef.current = requestAnimationFrame(animate)
+    }
       }
 
       // Initialize: Calculate single set width and position at the start of the second set
@@ -359,14 +359,14 @@ export default function ClientSlider() {
           >
             {duplicatedClients.length > 0 ? (
               duplicatedClients.map((client, index) => (
-                <div
-                  key={`${client}-${index}`}
-                  className="flex-shrink-0 backdrop-blur-xl bg-white/90 dark:bg-gray-800/80 px-8 py-6 rounded-2xl shadow-xl border-2 border-white/30 dark:border-gray-700/40 backdrop-saturate-150 transform hover:scale-105 transition-transform duration-300"
-                >
-                  <span className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white whitespace-nowrap">
-                    {client}
-                  </span>
-                </div>
+              <div
+                key={`${client}-${index}`}
+                className="flex-shrink-0 backdrop-blur-xl bg-white/90 dark:bg-gray-800/80 px-8 py-6 rounded-2xl shadow-xl border-2 border-white/30 dark:border-gray-700/40 backdrop-saturate-150 transform hover:scale-105 transition-transform duration-300"
+              >
+                <span className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white whitespace-nowrap">
+                  {client}
+                </span>
+              </div>
               ))
             ) : (
               // Fallback - show fallback clients if duplicatedClients is empty

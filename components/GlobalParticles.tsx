@@ -71,22 +71,22 @@ export default function GlobalParticles() {
         <div 
           className="absolute inset-0 w-full h-full"
           style={{ zIndex: 2 }}
-        >
-          <Particles
+    >
+      <Particles
             particleColors={PARTICLE_COLORS}
             particleCount={particleCount}
             particleSpread={25}
             speed={0.18}
             particleBaseSize={particleBaseSize}
             sizeRandomness={1.5}
-            moveParticlesOnHover={true}
+        moveParticlesOnHover={true}
             particleHoverFactor={3.5}
-            alphaParticles={true}
-            disableRotation={false}
-            useWindowEvents={true}
+        alphaParticles={true}
+        disableRotation={false}
+        useWindowEvents={true}
             onLoadSuccess={handleLoadSuccess}
             onLoadError={handleLoadError}
-          />
+      />
         </div>
       )}
     </div>

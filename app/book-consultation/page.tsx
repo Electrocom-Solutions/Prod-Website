@@ -456,7 +456,7 @@ export default function BookConsultationPage() {
     }
     // Clear general error
     if (error) {
-      setError('')
+    setError('')
     }
   }
 
@@ -474,7 +474,7 @@ export default function BookConsultationPage() {
       })
     }
     if (error) {
-      setError('')
+    setError('')
     }
   }
 
@@ -492,7 +492,7 @@ export default function BookConsultationPage() {
       })
     }
     if (error) {
-      setError('')
+    setError('')
     }
   }
 
@@ -516,16 +516,16 @@ export default function BookConsultationPage() {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       if (!emailRegex.test(formData.email)) {
         setError('Please enter a valid email address')
-        setIsSubmitting(false)
-        return
-      }
+      setIsSubmitting(false)
+      return
+    }
 
-      // Validate time range
-      if (formData.startTime >= formData.endTime) {
-        setError('End time must be after start time')
-        setIsSubmitting(false)
-        return
-      }
+    // Validate time range
+    if (formData.startTime >= formData.endTime) {
+      setError('End time must be after start time')
+      setIsSubmitting(false)
+      return
+    }
 
       // Map frontend form data to backend API format
       const consultationData = {
@@ -573,7 +573,7 @@ export default function BookConsultationPage() {
 
         // Redirect to home page after 3 seconds
         setTimeout(() => {
-          router.push('/?consultation=success')
+    router.push('/?consultation=success')
         }, 3000)
       } else {
         // Handle validation errors
@@ -695,14 +695,14 @@ export default function BookConsultationPage() {
                     Select Date <span className="text-red-500">*</span>
                   </label>
                   <div className={fieldErrors['date'] ? 'border-2 border-red-500 dark:border-red-500 rounded-xl' : ''}>
-                    <CustomDatePicker
-                      id="date"
-                      name="date"
-                      value={formData.date}
-                      minDate={today}
-                      onChange={handleDateChange}
-                      required
-                    />
+                  <CustomDatePicker
+                    id="date"
+                    name="date"
+                    value={formData.date}
+                    minDate={today}
+                    onChange={handleDateChange}
+                    required
+                  />
                   </div>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
                     Available from today onwards
@@ -718,15 +718,15 @@ export default function BookConsultationPage() {
                   </label>
                   <input type="hidden" name="startTime" value={formData.startTime} required />
                   <div className={fieldErrors['startTime'] ? 'border-2 border-red-500 dark:border-red-500 rounded-xl' : ''}>
-                    <CustomDropdown
-                      id="startTime"
-                      name="startTime"
-                      value={formData.startTime}
-                      options={timeSlots}
-                      placeholder="Choose start time"
-                      onChange={(value) => handleTimeChange('startTime', value)}
-                      required
-                    />
+                  <CustomDropdown
+                    id="startTime"
+                    name="startTime"
+                    value={formData.startTime}
+                    options={timeSlots}
+                    placeholder="Choose start time"
+                    onChange={(value) => handleTimeChange('startTime', value)}
+                    required
+                  />
                   </div>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
                     Business hours: 9:00 AM - 6:00 PM
@@ -742,16 +742,16 @@ export default function BookConsultationPage() {
                   </label>
                   <input type="hidden" name="endTime" value={formData.endTime} required />
                   <div className={fieldErrors['endTime'] ? 'border-2 border-red-500 dark:border-red-500 rounded-xl' : ''}>
-                    <CustomDropdown
-                      id="endTime"
-                      name="endTime"
-                      value={formData.endTime}
-                      options={timeSlots}
-                      placeholder="Choose end time"
-                      onChange={(value) => handleTimeChange('endTime', value)}
-                      filterFn={(time) => !formData.startTime || time > formData.startTime}
-                      required
-                    />
+                  <CustomDropdown
+                    id="endTime"
+                    name="endTime"
+                    value={formData.endTime}
+                    options={timeSlots}
+                    placeholder="Choose end time"
+                    onChange={(value) => handleTimeChange('endTime', value)}
+                    filterFn={(time) => !formData.startTime || time > formData.startTime}
+                    required
+                  />
                   </div>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
                     Must be after start time
@@ -850,25 +850,25 @@ export default function BookConsultationPage() {
                   {fieldErrors['phoneNumber'] && (
                     <p className="text-xs text-red-500 dark:text-red-400">{fieldErrors['phoneNumber']}</p>
                   )}
-                </div>
+              </div>
 
-                <div className="space-y-2">
-                  <label htmlFor="organization" className="block text-sm font-semibold text-gray-900 dark:text-white">
+              <div className="space-y-2">
+                <label htmlFor="organization" className="block text-sm font-semibold text-gray-900 dark:text-white">
                     Organization / Company
-                  </label>
-                  <input
-                    type="text"
-                    id="organization"
-                    name="organization"
-                    value={formData.organization}
-                    onChange={handleChange}
+                </label>
+                <input
+                  type="text"
+                  id="organization"
+                  name="organization"
+                  value={formData.organization}
+                  onChange={handleChange}
                     className={`w-full px-4 py-3.5 rounded-xl border-2 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500/20 transition-all outline-none text-base ${
                       fieldErrors['organization'] 
                         ? 'border-red-500 dark:border-red-500 focus:border-red-500' 
                         : 'border-gray-200 dark:border-gray-700 focus:border-primary-500'
                     }`}
-                    placeholder="ABC Corporation"
-                  />
+                  placeholder="ABC Corporation"
+                />
                   {fieldErrors['organization'] && (
                     <p className="text-xs text-red-500 dark:text-red-400">{fieldErrors['organization']}</p>
                   )}

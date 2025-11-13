@@ -92,26 +92,26 @@ export default function ProjectsPage() {
             ))}
           </div>
         ) : projects.length > 0 ? (
-          <div className={`grid md:grid-cols-2 lg:grid-cols-3 gap-8 ${isVisible ? 'animate-fade-in' : ''}`}>
-            {projects.map((project, index) => (
-              <div
+        <div className={`grid md:grid-cols-2 lg:grid-cols-3 gap-8 ${isVisible ? 'animate-fade-in' : ''}`}>
+          {projects.map((project, index) => (
+            <div
                 key={project.id}
-                className="group relative bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg shadow-md dark:shadow-gray-900/50 hover:shadow-xl dark:hover:shadow-gray-900 transition-all duration-300 border border-gray-100 dark:border-gray-700 transform hover:-translate-y-2 overflow-hidden"
-                style={{ animationDelay: `${index * 0.05}s` }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary-500 to-primary-600 opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
-                <div className="relative">
-                  <div className="mb-4">
-                    <span className="inline-block px-3 py-1 text-xs font-semibold text-primary-600 dark:text-primary-400 bg-primary-100 dark:bg-primary-900/30 rounded-full">
-                      {project.category}
-                    </span>
-                  </div>
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-                    {project.name}
-                  </h3>
-                  <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                    {project.description}
-                  </p>
+              className="group relative bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg shadow-md dark:shadow-gray-900/50 hover:shadow-xl dark:hover:shadow-gray-900 transition-all duration-300 border border-gray-100 dark:border-gray-700 transform hover:-translate-y-2 overflow-hidden"
+              style={{ animationDelay: `${index * 0.05}s` }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-primary-500 to-primary-600 opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+              <div className="relative">
+                <div className="mb-4">
+                  <span className="inline-block px-3 py-1 text-xs font-semibold text-primary-600 dark:text-primary-400 bg-primary-100 dark:bg-primary-900/30 rounded-full">
+                    {project.category}
+                  </span>
+                </div>
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                  {project.name}
+                </h3>
+                <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                  {project.description}
+                </p>
                   {project.project_url && (
                     <div className="mt-4">
                       <a
@@ -127,10 +127,10 @@ export default function ProjectsPage() {
                       </a>
                     </div>
                   )}
-                </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
         ) : (
           // Empty state
           <div className="text-center py-12">

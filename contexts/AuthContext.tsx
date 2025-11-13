@@ -67,13 +67,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         // Fallback to localStorage if API call fails (only on client)
         if (typeof window !== 'undefined') {
           try {
-            const authStatus = localStorage.getItem('isAuthenticated')
-            const userData = localStorage.getItem('user')
-            
-            if (authStatus === 'true' && userData) {
+    const authStatus = localStorage.getItem('isAuthenticated')
+    const userData = localStorage.getItem('user')
+    
+    if (authStatus === 'true' && userData) {
               try {
                 const parsedUser = JSON.parse(userData)
-                setIsAuthenticated(true)
+      setIsAuthenticated(true)
                 setUser(parsedUser)
               } catch (parseError) {
                 console.error('Error parsing user data:', parseError)
@@ -92,7 +92,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
       } finally {
         setLoading(false)
-      }
+    }
     }
 
     checkAuth()
@@ -112,7 +112,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Only save to localStorage on client side
     if (typeof window !== 'undefined') {
       try {
-        localStorage.setItem('isAuthenticated', 'true')
+    localStorage.setItem('isAuthenticated', 'true')
         localStorage.setItem('user', JSON.stringify(userObj))
       } catch (storageError) {
         // Ignore localStorage errors (e.g., in private browsing)
@@ -137,13 +137,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       console.error('Logout API error:', apiError)
     } finally {
       // Always clear local state regardless of API call result
-      setIsAuthenticated(false)
-      setUser(null)
+    setIsAuthenticated(false)
+    setUser(null)
       // Only clear localStorage on client side
       if (typeof window !== 'undefined') {
         try {
-          localStorage.removeItem('isAuthenticated')
-          localStorage.removeItem('user')
+    localStorage.removeItem('isAuthenticated')
+    localStorage.removeItem('user')
         } catch (storageError) {
           // Ignore localStorage errors
           console.warn('Failed to remove from localStorage:', storageError)

@@ -44,7 +44,7 @@ export default function ForgotPasswordPage() {
             }
           })
           setFieldErrors(errors)
-          
+
           // Set general error message
           if (response.message) {
             setError(response.message)
@@ -59,7 +59,7 @@ export default function ForgotPasswordPage() {
       console.error('Forgot password error:', error)
       setError('Network error. Please check your connection and try again.')
     } finally {
-      setIsSubmitting(false)
+    setIsSubmitting(false)
     }
   }
 

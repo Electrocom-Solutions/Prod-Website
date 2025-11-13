@@ -66,6 +66,11 @@ export default function Footer() {
         
         <div className="border-t border-gray-800 dark:border-gray-900 mt-8 pt-8 text-center text-sm md:text-base text-gray-400 dark:text-gray-500">
           <p>&copy; {new Date().getFullYear()} Electrocom. All rights reserved.</p>
+          <p className="mt-2">
+            <Link href="/privacy-policy" className="hover:text-white dark:hover:text-gray-300 transition-colors duration-300 underline">
+              Privacy Policy
+            </Link>
+          </p>
         </div>
       </div>
     </footer>
