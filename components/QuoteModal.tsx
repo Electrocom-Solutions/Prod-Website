@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { portfolioAPI, authAPI } from '@/lib/api'
@@ -178,6 +179,7 @@ function CustomDropdown({ id, name, value, options, placeholder, onChange, requi
 
 export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
   const router = useRouter()
+  const [mounted, setMounted] = useState(false)
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -190,6 +192,11 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
+
+  // Ensure we're on the client side before rendering portal
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     if (isOpen) {
@@ -355,7 +362,12 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
     { value: 'other', label: 'Other' }
   ]
 
-  return (
+  // Don't render portal on server side
+  if (!mounted) {
+    return null
+  }
+
+  const modalContent = (
     <AnimatePresence>
       {isOpen && (
         <>
@@ -365,12 +377,12 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]"
             onClick={handleClose}
           />
 
           {/* Modal */}
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 pointer-events-none">
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -600,5 +612,8 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
       )}
     </AnimatePresence>
   )
+
+  // Render modal using portal to document.body
+  return createPortal(modalContent, document.body)
 }
 
