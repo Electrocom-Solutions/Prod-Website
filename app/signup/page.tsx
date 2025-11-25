@@ -184,10 +184,17 @@ export default function SignupPage() {
         <div className="backdrop-blur-xl bg-white/90 dark:bg-gray-800/80 p-8 md:p-10 rounded-3xl shadow-2xl border-2 border-white/30 dark:border-gray-700/40 backdrop-saturate-150">
           {/* Header */}
           <div className="text-center mb-8">
-            <Link href="/" className="inline-block mb-4">
-              <span className="text-2xl md:text-3xl font-bold text-primary-600 dark:text-primary-400">
-                Electrocom
-              </span>
+            <Link href="/" className="inline-flex items-center justify-center gap-2 mb-4">
+              <img 
+                src="/logos/logo only.png" 
+                alt="Electrocom Logo" 
+                className="h-10 w-auto object-contain brightness-0 invert"
+              />
+              <img 
+                src="/logos/Electrocom Text.png" 
+                alt="Electrocom" 
+                className="h-6 w-auto object-contain brightness-0 invert"
+              />
             </Link>
             <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-400 dark:from-primary-400 dark:to-primary-300">
               Create Account

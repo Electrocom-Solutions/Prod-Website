@@ -162,9 +162,16 @@ export default function Header() {
           {/* Left Side - Logo and MSME Badge - Leftmost */}
           <div className="flex items-center space-x-3 justify-start">
             <Link href="/" className="flex items-center group">
-              <div className="text-2xl font-bold text-primary-700 dark:text-primary-400 group-hover:text-primary-600 dark:group-hover:text-primary-300 transition-colors duration-300">
-                Electrocom
-              </div>
+              <img 
+                src="/logos/logo only.png" 
+                alt="Electrocom Logo" 
+                className="h-10 w-auto object-contain brightness-0 invert group-hover:opacity-80 transition-opacity duration-300"
+              />
+              <img 
+                src="/logos/Electrocom Text.png" 
+                alt="Electrocom" 
+                className="h-6 w-auto object-contain ml-2 hidden sm:block brightness-0 invert group-hover:opacity-80 transition-opacity duration-300"
+              />
             </Link>
             <div className="hidden md:flex items-center bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-800 rounded-full px-3 py-1 animate-pulse-slow">
               <span className="text-xs font-semibold text-yellow-800 dark:text-yellow-300">MSME Certified</span>

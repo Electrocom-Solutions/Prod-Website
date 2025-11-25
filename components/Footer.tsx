@@ -8,7 +8,18 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-xl md:text-2xl font-bold mb-4">Electrocom</h3>
+            <Link href="/" className="flex items-center mb-4">
+              <img 
+                src="/logos/logo only.png" 
+                alt="Electrocom Logo" 
+                className="h-10 w-auto object-contain brightness-0 invert"
+              />
+              <img 
+                src="/logos/Electrocom Text.png" 
+                alt="Electrocom" 
+                className="h-6 w-auto object-contain ml-2 brightness-0 invert"
+              />
+            </Link>
             <p className="text-sm md:text-base text-gray-400 dark:text-gray-500">
               Your Trusted Partner for IT, Software & Manpower Solutions.
             </p>
