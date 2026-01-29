@@ -98,6 +98,12 @@ export default function Icon({ name, className, ...props }: Props) {
           />
         </svg>
       )
+    case 'building-office':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className={cls} {...props}>
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.75 21h16.5M4.5 21V6.75a1.5 1.5 0 013 0V21m-3-9h3m-3 0h3m-3 0h3m-6 0h3m-3 0h3m-3 0h3M3.75 21h16.5a.75.75 0 00.75-.75V3.75a.75.75 0 00-.75-.75H3.75a.75.75 0 00-.75.75v16.5c0 .414.336.75.75.75z" />
+        </svg>
+      )
     case 'building-office-2':
       return (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className={cls} {...props}>

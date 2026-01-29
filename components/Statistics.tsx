@@ -14,7 +14,7 @@ interface StatItem {
   gradient: string
 }
 
-// Default tiles; Projects and Products are overridden from API when keys match
+// Default tiles; projects_home and products_home are overridden from API when keys match
 const DEFAULT_STATS: StatItem[] = [
   { label: 'Projects Delivered', value: 50, suffix: '+', icon: 'rocket', gradient: 'from-blue-500 to-blue-600' },
   { label: 'Customer Satisfaction', value: 100, suffix: '%', icon: 'star', gradient: 'from-blue-600 to-blue-700' },
@@ -41,7 +41,7 @@ export default function Statistics() {
     portfolioAPI.getStatistics().then(({ success, statistics }) => {
       if (!success || !statistics?.length) return
       const projectsTile = statistics.find((s) => s.key === 'projects_home')
-      const productsTile = statistics.find((s) => s.key === 'Products')
+      const productsTile = statistics.find((s) => s.key === 'products_home')
       setStats((prev) => {
         const next = [...prev]
         if (projectsTile) {

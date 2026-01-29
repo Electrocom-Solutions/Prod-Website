@@ -24,7 +24,7 @@ const services: ServiceItem[] = [
   {
     title: 'Custom Software Development',
     description: 'Tailored software solutions designed around your unique business workflows. From architecture to deployment, we build scalable, secure, and maintainable applications with clean code and modern technologies.',
-    icon: 'cpu-chip',
+    icon: 'cube',
     href: '/services',
     gradient: 'from-primary-500/25 via-blue-500/20 to-cyan-500/25',
   },
