@@ -503,6 +503,20 @@ export interface ProjectData {
   updated_at: string
 }
 
+export interface ProductData {
+  id: number
+  name: string
+  short_description: string
+  major_description: string
+  logo: string | null
+  logo_url: string | null
+  product_url: string | null
+  rank: number
+  coming_soon: boolean
+  created_at: string
+  updated_at: string
+}
+
 export const portfolioAPI = {
   submitQuoteRequest: async (data: QuoteRequestData): Promise<ApiResponse> => {
     return apiRequest('/portfolio/quote-request/', {
@@ -563,6 +577,21 @@ export const portfolioAPI = {
     } catch (error) {
       console.error('Error fetching projects:', error);
       return { success: false, projects: [] };
+    }
+  },
+
+  getProducts: async (): Promise<{ success: boolean; products: ProductData[] }> => {
+    try {
+      const response = await apiRequest<{ products: ProductData[] }>('/portfolio/products/', {
+        method: 'GET',
+      });
+      if (response.success && (response as any).products && Array.isArray((response as any).products)) {
+        return { success: true, products: (response as any).products };
+      }
+      return { success: false, products: [] };
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      return { success: false, products: [] };
     }
   },
 };

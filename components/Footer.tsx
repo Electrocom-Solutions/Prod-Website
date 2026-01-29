@@ -1,8 +1,22 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { portfolioAPI } from '@/lib/api'
 
 export default function Footer() {
+  const [projectsCount, setProjectsCount] = useState<string>('20+')
+
+  // Fetch Projects statistic for trust card
+  useEffect(() => {
+    portfolioAPI.getStatistics().then(({ success, statistics }) => {
+      if (success && statistics?.length) {
+        const projectsTile = statistics.find((s) => s.key === 'Projects')
+        if (projectsTile?.value != null) setProjectsCount(projectsTile.value.trim() || '20+')
+      }
+    })
+  }, [])
+
   return (
     <footer className="relative z-10 overflow-hidden text-white bg-[#0f172a] min-h-screen flex flex-col">
       {/* When scrolled to bottom, footer fills viewport so you see only footer (no cut-off Contact Us) */}
@@ -26,13 +40,13 @@ export default function Footer() {
               </div>
               <div className="flex flex-wrap gap-3 flex-shrink-0">
                 <Link
-                  href="/#contact"
+                  href="/get-quote"
                   className="inline-flex items-center justify-center rounded-xl px-6 py-3 text-base font-semibold text-white bg-gradient-to-r from-primary-600 to-primary-400 hover:from-primary-500 hover:to-primary-300 transition-all shadow-lg border border-primary-400/20"
                 >
                   Get in Touch
                 </Link>
                 <Link
-                  href="/book-consultation"
+                  href="/get-quote"
                   className="inline-flex items-center justify-center rounded-xl px-6 py-3 text-base font-semibold text-white/90 border border-white/20 bg-white/5 hover:bg-white/10 hover:border-primary-400/30 transition-all"
                 >
                   Free Consultation
@@ -62,10 +76,10 @@ export default function Footer() {
               <p className="mt-3 text-base text-white/70 leading-relaxed max-w-sm">
                 Your Trusted Partner for IT & Software Solutions.
               </p>
-              {/* Trust stats — increased spacing, larger cards, aligned under brand */}
+              {/* Trust stats — Projects count from API */}
               <div className="mt-6 grid grid-cols-3 gap-4">
                 <div className="rounded-xl border border-white/10 bg-white/[0.04] dark:bg-primary-500/5 p-4 text-center">
-                  <div className="text-xl md:text-2xl font-bold text-white leading-tight">20+</div>
+                  <div className="text-xl md:text-2xl font-bold text-white leading-tight">{projectsCount}</div>
                   <div className="text-xs font-semibold uppercase tracking-wide text-white/60 mt-1">Projects</div>
                 </div>
                 <div className="rounded-xl border border-white/10 bg-white/[0.04] dark:bg-primary-500/5 p-4 text-center">
@@ -130,17 +144,17 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/#contact" className="hover:text-primary-300 transition-colors">
+                  <Link href="/get-quote" className="hover:text-primary-300 transition-colors">
                     Careers
                   </Link>
                 </li>
                 <li>
-                  <Link href="/#about" className="hover:text-primary-300 transition-colors">
+                  <Link href="/testimonials" className="hover:text-primary-300 transition-colors">
                     Testimonials
                   </Link>
                 </li>
                 <li>
-                  <Link href="/#technologies" className="hover:text-primary-300 transition-colors">
+                  <Link href="/technologies" className="hover:text-primary-300 transition-colors">
                     Technologies
                   </Link>
                 </li>
@@ -156,7 +170,7 @@ export default function Footer() {
               <h4 className="text-sm font-semibold tracking-wide text-primary-400/90 uppercase">Products</h4>
               <ul className="mt-3 space-y-2.5 text-sm text-white/70 leading-relaxed">
                 <li>
-                  <Link href="/projects" className="hover:text-primary-300 transition-colors">
+                  <Link href="/products" className="hover:text-primary-300 transition-colors">
                     SolvifyHub
                   </Link>
                 </li>
@@ -167,20 +181,12 @@ export default function Footer() {
               <h4 className="text-sm font-semibold tracking-wide text-primary-400/90 uppercase">Tools</h4>
               <ul className="mt-3 space-y-2.5 text-sm text-white/70 leading-relaxed">
                 <li>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (typeof window !== 'undefined') {
-                        window.location.href = '/#contact'
-                      }
-                    }}
-                    className="hover:text-primary-300 transition-colors text-left"
-                  >
+                  <Link href="/get-quote" className="hover:text-primary-300 transition-colors">
                     Get Quote
-                  </button>
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/book-consultation" className="hover:text-primary-300 transition-colors">
+                  <Link href="/get-quote" className="hover:text-primary-300 transition-colors">
                     Book Meeting
                   </Link>
                 </li>

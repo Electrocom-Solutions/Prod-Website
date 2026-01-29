@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import SectionParticles from './SectionParticles'
 import Icon, { type IconName } from './Icon'
+import { portfolioAPI } from '@/lib/api'
 
 interface StatItem {
   label: string
@@ -13,19 +14,60 @@ interface StatItem {
   gradient: string
 }
 
-// Exactly 4 tiles, fixed order and content
-const STATS: StatItem[] = [
+// Default tiles; Projects and Products are overridden from API when keys match
+const DEFAULT_STATS: StatItem[] = [
   { label: 'Projects Delivered', value: 50, suffix: '+', icon: 'rocket', gradient: 'from-blue-500 to-blue-600' },
   { label: 'Customer Satisfaction', value: 100, suffix: '%', icon: 'star', gradient: 'from-blue-600 to-blue-700' },
   { label: '24/7 Support', value: 24, displayValue: '24/7', icon: 'bolt', gradient: 'from-orange-500 to-red-500' },
   { label: 'Products Built', value: 8, icon: 'cube', gradient: 'from-green-500 to-emerald-500' },
 ]
 
+function parseStatValue(value: string): { numeric: number | null; display: string } {
+  const trimmed = (value || '').trim()
+  const num = parseInt(trimmed, 10)
+  if (!Number.isNaN(num)) return { numeric: num, display: trimmed }
+  return { numeric: null, display: trimmed || '0' }
+}
+
 export default function Statistics() {
+  const [stats, setStats] = useState<StatItem[]>(DEFAULT_STATS)
   const [isVisible, setIsVisible] = useState(false)
   const [counts, setCounts] = useState<Record<number, number>>({ 0: 0, 1: 0, 2: 24, 3: 0 })
   const sectionRef = useRef<HTMLElement>(null)
   const hasAnimated = useRef(false)
+
+  // Fetch Projects and Products keys from statistic tiles
+  useEffect(() => {
+    portfolioAPI.getStatistics().then(({ success, statistics }) => {
+      if (!success || !statistics?.length) return
+      const projectsTile = statistics.find((s) => s.key === 'Projects')
+      const productsTile = statistics.find((s) => s.key === 'Products')
+      setStats((prev) => {
+        const next = [...prev]
+        if (projectsTile) {
+          const { numeric, display } = parseStatValue(projectsTile.value)
+          next[0] = {
+            ...prev[0],
+            label: projectsTile.title || prev[0].label,
+            value: numeric ?? prev[0].value,
+            displayValue: numeric == null ? display : undefined,
+            suffix: numeric != null && display.includes('+') ? '+' : prev[0].suffix,
+          }
+        }
+        if (productsTile) {
+          const { numeric, display } = parseStatValue(productsTile.value)
+          next[3] = {
+            ...prev[3],
+            label: productsTile.title || prev[3].label,
+            value: numeric ?? prev[3].value,
+            displayValue: numeric == null ? display : undefined,
+            suffix: prev[3].suffix,
+          }
+        }
+        return next
+      })
+    })
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -42,7 +84,7 @@ export default function Statistics() {
     return () => { if (el) observer.unobserve(el) }
   }, [])
 
-  // Animate numeric stats when visible (skip index 2 which is 24/7)
+  // Animate numeric stats when visible (skip tiles with displayValue, e.g. 24/7)
   useEffect(() => {
     if (!isVisible) return
 
@@ -51,7 +93,7 @@ export default function Statistics() {
     const stepDuration = duration / steps
     const timers: NodeJS.Timeout[] = []
 
-    STATS.forEach((stat, index) => {
+    stats.forEach((stat, index) => {
       if (stat.displayValue != null) return
       let currentStep = 0
       const increment = stat.value / steps
@@ -69,9 +111,9 @@ export default function Statistics() {
     })
 
     return () => timers.forEach(t => clearInterval(t))
-  }, [isVisible])
+  }, [isVisible, stats])
 
-  const displayStats: (StatItem & { displayNumber: number | string })[] = STATS.map((stat, index) => ({
+  const displayStats: (StatItem & { displayNumber: number | string })[] = stats.map((stat, index) => ({
     ...stat,
     displayNumber: stat.displayValue != null ? stat.displayValue : (counts[index] ?? 0),
   }))
