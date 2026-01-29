@@ -40,7 +40,7 @@ export default function Statistics() {
   useEffect(() => {
     portfolioAPI.getStatistics().then(({ success, statistics }) => {
       if (!success || !statistics?.length) return
-      const projectsTile = statistics.find((s) => s.key === 'Projects')
+      const projectsTile = statistics.find((s) => s.key === 'projects_home')
       const productsTile = statistics.find((s) => s.key === 'Products')
       setStats((prev) => {
         const next = [...prev]

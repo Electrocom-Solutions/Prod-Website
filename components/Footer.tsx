@@ -11,7 +11,7 @@ export default function Footer() {
   useEffect(() => {
     portfolioAPI.getStatistics().then(({ success, statistics }) => {
       if (success && statistics?.length) {
-        const projectsTile = statistics.find((s) => s.key === 'Projects')
+        const projectsTile = statistics.find((s) => s.key === 'projects_footer')
         if (projectsTile?.value != null) setProjectsCount(projectsTile.value.trim() || '20+')
       }
     })
