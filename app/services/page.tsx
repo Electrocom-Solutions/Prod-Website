@@ -192,7 +192,7 @@ export default function ServicesPage() {
                 </ul>
 
                 <Link
-                  href={`/services/software-solutions/${service.id}`}
+                  href={`/services/${service.id}`}
                   className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-primary-600 to-primary-400 dark:from-primary-500 dark:to-primary-300 text-white font-semibold hover:from-primary-700 hover:to-primary-500 dark:hover:from-primary-600 dark:hover:to-primary-400 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
                 >
                   Learn More

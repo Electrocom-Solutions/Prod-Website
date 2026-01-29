@@ -1,13 +1,10 @@
 'use client'
 
-import { useState } from 'react'
 import Link from 'next/link'
 import SectionParticles from '@/components/SectionParticles'
-import QuoteModal from '@/components/QuoteModal'
 import Icon from '@/components/Icon'
 
-export default function CustomAISolutionsPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+export default function CloudHostingPage() {
   return (
     <div className="min-h-screen">
       <SectionParticles particleCount={200} />
@@ -20,13 +17,13 @@ export default function CustomAISolutionsPage() {
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <div className="mb-6 flex items-center justify-center text-primary-700 dark:text-primary-300">
-            <Icon name="cpu-chip" className="w-16 h-16" aria-hidden="true" />
+            <Icon name="cloud" className="w-16 h-16" aria-hidden="true" />
           </div>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 dark:text-white mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-400 dark:from-primary-400 dark:to-primary-300">
-            Custom AI Solutions
+            Cloud Hosting
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-8 max-w-3xl mx-auto">
-            Leverage artificial intelligence to automate processes and gain competitive advantages
+            Scalable cloud infrastructure and hosting solutions for your applications
           </p>
         </div>
       </section>
@@ -34,38 +31,35 @@ export default function CustomAISolutionsPage() {
       <section className="relative z-10 py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="backdrop-blur-xl bg-white/90 dark:bg-gray-800/80 p-8 md:p-12 rounded-3xl shadow-2xl border-2 border-white/30 dark:border-gray-700/40 backdrop-saturate-150">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">About Custom AI Solutions</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">About Cloud Hosting</h2>
             <div className="prose prose-lg dark:prose-invert max-w-none">
               <p className="text-gray-600 dark:text-gray-400 mb-6">
-                We develop custom AI solutions and integrate ready-to-use AI services to help you automate processes, enhance decision-making, and create intelligent applications.
+                We provide reliable, scalable cloud hosting solutions that ensure your applications are always available and perform at their best.
               </p>
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Our Services Include:</h3>
               <ul className="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-400 mb-6">
-                <li>Custom AI Development - Tailored AI models and algorithms for your specific needs</li>
-                <li>Ready-to-use AI Solutions - Integration of pre-built AI services and platforms</li>
-                <li>Machine Learning Models</li>
-                <li>Natural Language Processing</li>
-                <li>Computer Vision Solutions</li>
-                <li>Chatbot Development</li>
-                <li>AI-powered Automation</li>
-                <li>AI Consulting & Strategy</li>
+                <li>Cloud Infrastructure Setup</li>
+                <li>Server Configuration & Management</li>
+                <li>Load Balancing & Auto-Scaling</li>
+                <li>Database Hosting</li>
+                <li>CDN Integration</li>
+                <li>Backup & Disaster Recovery</li>
+                <li>Security & Monitoring</li>
+                <li>24/7 Support & Maintenance</li>
               </ul>
               <div className="flex flex-wrap gap-4 mt-8">
-                <button
-                  onClick={() => setIsModalOpen(true)}
+                <Link
+                  href="/get-quote"
                   className="px-8 py-4 rounded-xl bg-gradient-to-r from-primary-600 to-primary-400 dark:from-primary-500 dark:to-primary-300 text-white font-semibold hover:from-primary-700 hover:to-primary-500 dark:hover:from-primary-600 dark:hover:to-primary-400 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                 >
                   Get a Quote
-                </button>
+                </Link>
                 <Link href="/services" className="px-8 py-4 rounded-xl border-2 border-primary-600 dark:border-primary-400 text-primary-600 dark:text-primary-400 font-semibold hover:bg-primary-600 dark:hover:bg-primary-400 hover:text-white dark:hover:text-white transition-all">Back to Services</Link>
               </div>
             </div>
           </div>
         </div>
       </section>
-      
-      {/* Quote Modal */}
-      <QuoteModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   )
 }

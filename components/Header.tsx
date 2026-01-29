@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
-import QuoteModal from './QuoteModal'
 import LogoutModal from './LogoutModal'
 import { useAuth } from '@/contexts/AuthContext'
 
@@ -13,7 +12,6 @@ export default function Header() {
   const { isAuthenticated, logout, user } = useAuth()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [isModalOpen, setIsModalOpen] = useState(false)
   const [isAuthDropdownOpen, setIsAuthDropdownOpen] = useState(false)
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
@@ -222,15 +220,15 @@ export default function Header() {
               </svg>
               <span>Free Consultation</span>
             </button>
-            <button
-              onClick={() => setIsModalOpen(true)}
+            <Link
+              href="/get-quote"
               className="px-6 py-2 rounded-xl bg-gradient-to-r from-primary-600 to-primary-400 dark:from-primary-500 dark:to-primary-300 text-white font-semibold hover:from-primary-700 hover:to-primary-500 dark:hover:from-primary-600 dark:hover:to-primary-400 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center space-x-2"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
               <span>Get a Quote</span>
-            </button>
+            </Link>
             
             {/* Authentication Dropdown */}
             <div className="relative" ref={authDropdownRef}>
@@ -537,26 +535,21 @@ export default function Header() {
                 </svg>
                 <span>Free Consultation</span>
               </button>
-              <button
-                onClick={() => {
-                  setIsModalOpen(true)
-                  setIsMenuOpen(false)
-                }}
+              <Link
+                href="/get-quote"
+                onClick={() => setIsMenuOpen(false)}
                 className="w-full px-6 py-2 rounded-xl bg-gradient-to-r from-primary-600 to-primary-400 dark:from-primary-500 dark:to-primary-300 text-white font-semibold hover:from-primary-700 hover:to-primary-500 dark:hover:from-primary-600 dark:hover:to-primary-400 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
                 <span>Get a Quote</span>
-              </button>
+              </Link>
             </div>
           </div>
         )}
       </div>
 
-      {/* Quote Modal */}
-      <QuoteModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-      
       {/* Logout Confirmation Modal */}
       {isLogoutModalOpen && (
         <LogoutModal 

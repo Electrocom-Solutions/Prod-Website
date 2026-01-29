@@ -8,7 +8,6 @@ import ServicesOverview from '@/components/ServicesOverview'
 import IndustriesWeServe from '@/components/IndustriesWeServe'
 import Statistics from '@/components/Statistics'
 import ClientSlider from '@/components/ClientSlider'
-import ContactUs from '@/components/ContactUs'
 
 function HomeContent() {
   const pathname = usePathname()
@@ -136,12 +135,11 @@ function HomeContent() {
       )}
 
       <Hero />
-      <ServicesOverview />
       <Statistics />
+      <ServicesOverview />
       <ClientSlider />
       <OurExpertise />
       <IndustriesWeServe />
-      <ContactUs />
     </div>
   )
 }

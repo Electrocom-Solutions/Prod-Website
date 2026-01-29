@@ -4,11 +4,9 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import RotatingText from './RotatingText'
 import SectionParticles from './SectionParticles'
-import QuoteModal from './QuoteModal'
 
 export default function Hero() {
   const [mounted, setMounted] = useState(false)
-  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -66,18 +64,15 @@ export default function Hero() {
               <span className="relative z-10 text-base md:text-lg">Explore Our Services</span>
               <div className="absolute inset-0 bg-gradient-to-r from-primary-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </Link>
-            <button
-              onClick={() => setIsModalOpen(true)}
+            <Link
+              href="/get-quote"
               className="group relative backdrop-blur-xl bg-transparent border-2 border-gray-900 dark:border-white text-gray-900 dark:text-white px-6 py-3 rounded-xl font-semibold hover:bg-gray-900 dark:hover:bg-white hover:text-white dark:hover:text-gray-900 transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:-translate-y-2"
             >
               <span className="relative z-10 text-base md:text-lg">Get a Quote</span>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
-
-      {/* Quote Modal */}
-      <QuoteModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   )
 }

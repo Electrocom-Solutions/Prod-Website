@@ -84,27 +84,27 @@ export default function Footer() {
               <h4 className="text-sm font-semibold tracking-wide text-primary-400/90 uppercase">Services</h4>
               <ul className="mt-3 space-y-2.5 text-sm text-white/70 leading-relaxed">
                 <li>
-                  <Link href="/services/software-solutions/custom-ai-solutions" className="hover:text-primary-300 transition-colors">
+                  <Link href="/services/custom-ai-solutions" className="hover:text-primary-300 transition-colors">
                     AI Solutions
                   </Link>
                 </li>
                 <li>
-                  <Link href="/services/software-solutions/custom-software-development" className="hover:text-primary-300 transition-colors">
+                  <Link href="/services/custom-software-development" className="hover:text-primary-300 transition-colors">
                     Custom Software
                   </Link>
                 </li>
                 <li>
-                  <Link href="/services/software-solutions/web-development" className="hover:text-primary-300 transition-colors">
+                  <Link href="/services/web-development" className="hover:text-primary-300 transition-colors">
                     Web Development
                   </Link>
                 </li>
                 <li>
-                  <Link href="/services/software-solutions/mobile-app-development" className="hover:text-primary-300 transition-colors">
+                  <Link href="/services/mobile-app-development" className="hover:text-primary-300 transition-colors">
                     Mobile Apps
                   </Link>
                 </li>
                 <li>
-                  <Link href="/services/software-solutions/cloud-architecture" className="hover:text-primary-300 transition-colors">
+                  <Link href="/services/cloud-architecture" className="hover:text-primary-300 transition-colors">
                     Cloud Services
                   </Link>
                 </li>

@@ -169,10 +169,10 @@ export default function ContactUs({ badge = 'Get In Touch', title = 'Contact Us'
                     <div>
                       <h4 className="text-base font-semibold text-gray-900 dark:text-white mb-1">Email</h4>
                       <a 
-                        href="mailto:electrocomchittor@yahoo.com" 
+                        href="mailto:admin@electrocomsolutions.in" 
                         className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-300"
                       >
-                        electrocomchittor@yahoo.com
+                        admin@electrocomsolutions.in
                       </a>
                     </div>
                   </div>

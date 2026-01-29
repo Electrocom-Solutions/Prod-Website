@@ -1,13 +1,10 @@
 'use client'
 
-import { useState } from 'react'
 import Link from 'next/link'
 import SectionParticles from '@/components/SectionParticles'
-import QuoteModal from '@/components/QuoteModal'
 import Icon from '@/components/Icon'
 
-export default function ECommerceSolutionsPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+export default function DevOpsPage() {
   return (
     <div className="min-h-screen">
       <SectionParticles particleCount={200} />
@@ -20,13 +17,13 @@ export default function ECommerceSolutionsPage() {
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <div className="mb-6 flex items-center justify-center text-primary-700 dark:text-primary-300">
-            <Icon name="shopping-cart" className="w-16 h-16" aria-hidden="true" />
+            <Icon name="cog-6-tooth" className="w-16 h-16" aria-hidden="true" />
           </div>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 dark:text-white mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-400 dark:from-primary-400 dark:to-primary-300">
-            E-Commerce Solutions
+            DevOps
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-8 max-w-3xl mx-auto">
-            Complete e-commerce platforms with payment integration and inventory management
+            CI/CD pipelines, automation, and infrastructure management for seamless deployments
           </p>
         </div>
       </section>
@@ -34,39 +31,35 @@ export default function ECommerceSolutionsPage() {
       <section className="relative z-10 py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="backdrop-blur-xl bg-white/90 dark:bg-gray-800/80 p-8 md:p-12 rounded-3xl shadow-2xl border-2 border-white/30 dark:border-gray-700/40 backdrop-saturate-150">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">About E-Commerce Solutions</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">About DevOps</h2>
             <div className="prose prose-lg dark:prose-invert max-w-none">
               <p className="text-gray-600 dark:text-gray-400 mb-6">
-                We build powerful e-commerce platforms that help you sell online with ease, featuring secure payment processing, inventory management, and seamless user experiences.
+                We streamline your development and deployment processes with modern DevOps practices, automation, and infrastructure as code.
               </p>
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Our Services Include:</h3>
               <ul className="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-400 mb-6">
-                <li>Shopify Store Development - Custom Shopify themes and app development</li>
-                <li>Custom Store Development - Bespoke e-commerce platforms built from scratch</li>
-                <li>Payment Gateway Integration - Secure payment processing with multiple gateways</li>
-                <li>Inventory Management Systems</li>
-                <li>Order Management & Fulfillment</li>
-                <li>Product Catalog Management</li>
-                <li>Customer Account Management</li>
-                <li>Analytics & Reporting</li>
-                <li>Multi-channel Integration</li>
+                <li>CI/CD Pipeline Setup</li>
+                <li>Infrastructure as Code (IaC)</li>
+                <li>Container Orchestration (Docker, Kubernetes)</li>
+                <li>Automated Testing & Deployment</li>
+                <li>Monitoring & Logging Solutions</li>
+                <li>Configuration Management</li>
+                <li>Performance Optimization</li>
+                <li>DevOps Training & Consulting</li>
               </ul>
               <div className="flex flex-wrap gap-4 mt-8">
-                <button
-                  onClick={() => setIsModalOpen(true)}
+                <Link
+                  href="/get-quote"
                   className="px-8 py-4 rounded-xl bg-gradient-to-r from-primary-600 to-primary-400 dark:from-primary-500 dark:to-primary-300 text-white font-semibold hover:from-primary-700 hover:to-primary-500 dark:hover:from-primary-600 dark:hover:to-primary-400 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                 >
                   Get a Quote
-                </button>
+                </Link>
                 <Link href="/services" className="px-8 py-4 rounded-xl border-2 border-primary-600 dark:border-primary-400 text-primary-600 dark:text-primary-400 font-semibold hover:bg-primary-600 dark:hover:bg-primary-400 hover:text-white dark:hover:text-white transition-all">Back to Services</Link>
               </div>
             </div>
           </div>
         </div>
       </section>
-      
-      {/* Quote Modal */}
-      <QuoteModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   )
 }
