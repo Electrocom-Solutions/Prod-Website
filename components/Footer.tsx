@@ -11,7 +11,7 @@ export default function Footer() {
       <div className="absolute -bottom-24 right-0 h-72 w-72 rounded-full bg-primary-400/10 blur-3xl pointer-events-none" />
       <div className="absolute top-1/2 left-0 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />
 
-      <div className="relative flex-1 flex flex-col justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-10 lg:py-14">
+      <div className="relative flex-1 flex flex-col justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-10 lg:pt-14 pb-4 lg:pb-6">
         {/* Layer 1: CTA — distinct, floating section with generous spacing */}
         <section className="flex-shrink-0 pt-8 lg:pt-12 pb-12 lg:pb-16">
           <div className="rounded-2xl border border-white/20 dark:border-gray-700/30 bg-white/5 dark:bg-gray-800/30 backdrop-blur-xl shadow-xl p-8 lg:p-10 min-h-[7rem] flex flex-col justify-center">
@@ -190,7 +190,7 @@ export default function Footer() {
         </section>
 
         {/* Copyright bar — clear separation from footer grid */}
-        <section className="flex-shrink-0 pt-8 lg:pt-10 pb-6 lg:pb-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-white/60 leading-relaxed">
+        <section className="flex-shrink-0 pt-8 lg:pt-10 pb-2 lg:pb-3 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-white/60 leading-relaxed">
           <p>&copy; {new Date().getFullYear()} Electrocom. All rights reserved.</p>
           <div className="flex items-center gap-4 text-white/70">
             <a
