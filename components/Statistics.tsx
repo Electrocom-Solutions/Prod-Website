@@ -14,12 +14,12 @@ interface StatItem {
   gradient: string
 }
 
-// Default tiles; projects_home and products_home are overridden from API when keys match
+// Default tiles; projects_home and services are overridden from API when keys match
 const DEFAULT_STATS: StatItem[] = [
   { label: 'Projects Delivered', value: 50, suffix: '+', icon: 'rocket', gradient: 'from-blue-500 to-blue-600' },
   { label: 'Customer Satisfaction', value: 100, suffix: '%', icon: 'star', gradient: 'from-blue-600 to-blue-700' },
   { label: '24/7 Support', value: 24, displayValue: '24/7', icon: 'bolt', gradient: 'from-orange-500 to-red-500' },
-  { label: 'Products Built', value: 8, icon: 'cube', gradient: 'from-green-500 to-emerald-500' },
+  { label: 'Services Offered', value: 0, icon: 'cog-6-tooth', gradient: 'from-green-500 to-emerald-500' },
 ]
 
 function parseStatValue(value: string): { numeric: number | null; display: string } {
@@ -36,12 +36,12 @@ export default function Statistics() {
   const sectionRef = useRef<HTMLElement>(null)
   const hasAnimated = useRef(false)
 
-  // Fetch Projects and Products keys from statistic tiles
+  // Fetch projects_home and services keys from statistic tiles
   useEffect(() => {
     portfolioAPI.getStatistics().then(({ success, statistics }) => {
       if (!success || !statistics?.length) return
       const projectsTile = statistics.find((s) => s.key === 'projects_home')
-      const productsTile = statistics.find((s) => s.key === 'products_home')
+      const servicesTile = statistics.find((s) => s.key === 'services')
       setStats((prev) => {
         const next = [...prev]
         if (projectsTile) {
@@ -54,11 +54,11 @@ export default function Statistics() {
             suffix: numeric != null && display.includes('+') ? '+' : prev[0].suffix,
           }
         }
-        if (productsTile) {
-          const { numeric, display } = parseStatValue(productsTile.value)
+        if (servicesTile) {
+          const { numeric, display } = parseStatValue(servicesTile.value)
           next[3] = {
             ...prev[3],
-            label: productsTile.title || prev[3].label,
+            label: servicesTile.title || prev[3].label,
             value: numeric ?? prev[3].value,
             displayValue: numeric == null ? display : undefined,
             suffix: prev[3].suffix,
