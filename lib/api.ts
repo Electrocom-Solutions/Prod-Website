@@ -517,6 +517,18 @@ export interface ProductData {
   updated_at: string
 }
 
+export interface TestimonialData {
+  id: number
+  quote: string
+  name: string
+  role: string
+  company: string
+  rating: number
+  rank: number
+  created_at: string
+  updated_at: string
+}
+
 export const portfolioAPI = {
   submitQuoteRequest: async (data: QuoteRequestData): Promise<ApiResponse> => {
     return apiRequest('/portfolio/quote-request/', {
@@ -592,6 +604,21 @@ export const portfolioAPI = {
     } catch (error) {
       console.error('Error fetching products:', error);
       return { success: false, products: [] };
+    }
+  },
+
+  getTestimonials: async (): Promise<{ success: boolean; testimonials: TestimonialData[] }> => {
+    try {
+      const response = await apiRequest<{ testimonials: TestimonialData[] }>('/portfolio/testimonials/', {
+        method: 'GET',
+      });
+      if (response.success && (response as any).testimonials && Array.isArray((response as any).testimonials)) {
+        return { success: true, testimonials: (response as any).testimonials };
+      }
+      return { success: false, testimonials: [] };
+    } catch (error) {
+      console.error('Error fetching testimonials:', error);
+      return { success: false, testimonials: [] };
     }
   },
 };

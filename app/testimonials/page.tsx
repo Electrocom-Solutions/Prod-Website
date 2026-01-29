@@ -4,57 +4,7 @@ import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import SectionParticles from '@/components/SectionParticles'
 import ContactUs from '@/components/ContactUs'
-
-const testimonials = [
-  {
-    quote:
-      'Electrocom delivered our custom ERP solution on time and within budget. Their team understood our requirements from day one and the support has been exceptional.',
-    name: 'Rajesh Kumar',
-    role: 'Operations Director',
-    company: 'Manufacturing & Logistics',
-    rating: 5,
-  },
-  {
-    quote:
-      'We partnered with Electrocom for our cloud migration. The architecture they designed is scalable, secure, and has significantly reduced our infrastructure costs.',
-    name: 'Priya Sharma',
-    role: 'CTO',
-    company: 'FinTech Startup',
-    rating: 5,
-  },
-  {
-    quote:
-      'From UI/UX design to deployment, Electrocom handled our e-commerce platform end-to-end. Our conversion rates improved and the user experience is outstanding.',
-    name: 'Amit Patel',
-    role: 'Founder',
-    company: 'E-Commerce Brand',
-    rating: 5,
-  },
-  {
-    quote:
-      'Their AI solutions team helped us automate critical workflows. The custom models they built have saved us hundreds of hours and improved accuracy dramatically.',
-    name: 'Sneha Reddy',
-    role: 'Head of Analytics',
-    company: 'Healthcare Provider',
-    rating: 5,
-  },
-  {
-    quote:
-      'Professional, responsive, and technically excellent. Electrocom built our mobile app and the feedback from our users has been overwhelmingly positive.',
-    name: 'Vikram Singh',
-    role: 'Product Manager',
-    company: 'EdTech Platform',
-    rating: 5,
-  },
-  {
-    quote:
-      'We needed a reliable partner for DevOps and cloud hosting. Electrocom set up our CI/CD pipeline and monitoring—releases are now smooth and incidents are rare.',
-    name: 'Kavita Nair',
-    role: 'Engineering Lead',
-    company: 'SaaS Company',
-    rating: 5,
-  },
-]
+import { portfolioAPI, type TestimonialData } from '@/lib/api'
 
 function StarRating({ stars }: { stars: number }) {
   return (
@@ -75,8 +25,22 @@ function StarRating({ stars }: { stars: number }) {
 }
 
 export default function TestimonialsPage() {
+  const [testimonials, setTestimonials] = useState<TestimonialData[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    portfolioAPI.getTestimonials().then(({ success, testimonials: data }) => {
+      setLoading(false)
+      if (success && data?.length) setTestimonials(data)
+      else if (!success) setError('Unable to load testimonials.')
+    }).catch(() => {
+      setLoading(false)
+      setError('Unable to load testimonials.')
+    })
+  }, [])
 
   useEffect(() => {
     const el = sectionRef.current
@@ -149,21 +113,29 @@ export default function TestimonialsPage() {
               </div>
             </div>
 
-            {/* Right: featured testimonial card */}
+            {/* Right: featured testimonial card (first from API) */}
             <div className="order-1 lg:order-2">
-              <article className="relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8 shadow-2xl hover:bg-white/[0.07] hover:border-white/20 transition-all duration-300">
-                <div className="absolute -top-3 -left-1 text-6xl text-primary-400/30 font-serif leading-none select-none" aria-hidden>
-                  &ldquo;
-                </div>
-                <StarRating stars={5} />
-                <blockquote className="mt-4 text-slate-200 text-lg sm:text-xl leading-relaxed">
-                  Electrocom delivered our custom ERP solution on time and within budget. Their team understood our requirements from day one and the support has been exceptional.
-                </blockquote>
-                <footer className="mt-6 pt-4 border-t border-white/10">
-                  <p className="font-semibold text-white">Rajesh Kumar</p>
-                  <p className="text-sm text-primary-300/90">Operations Director · Manufacturing & Logistics</p>
-                </footer>
-              </article>
+              {testimonials[0] ? (
+                <article className="relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8 shadow-2xl hover:bg-white/[0.07] hover:border-white/20 transition-all duration-300">
+                  <div className="absolute -top-3 -left-1 text-6xl text-primary-400/30 font-serif leading-none select-none" aria-hidden>
+                    &ldquo;
+                  </div>
+                  <StarRating stars={testimonials[0].rating} />
+                  <blockquote className="mt-4 text-slate-200 text-lg sm:text-xl leading-relaxed">
+                    {testimonials[0].quote}
+                  </blockquote>
+                  <footer className="mt-6 pt-4 border-t border-white/10">
+                    <p className="font-semibold text-white">{testimonials[0].name}</p>
+                    <p className="text-sm text-primary-300/90">{testimonials[0].role} · {testimonials[0].company}</p>
+                  </footer>
+                </article>
+              ) : (
+                <article className="relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8 shadow-2xl">
+                  <div className="h-4 w-24 bg-white/10 rounded animate-pulse mb-4" />
+                  <div className="space-y-2 h-24 bg-white/5 rounded animate-pulse" />
+                  <div className="mt-6 pt-4 border-t border-white/10 h-10 bg-white/5 rounded animate-pulse" />
+                </article>
+              )}
             </div>
           </div>
 
@@ -204,37 +176,58 @@ export default function TestimonialsPage() {
             </p>
           </div>
 
-          <div
-            className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 ${isVisible ? 'animate-fade-in' : ''}`}
-          >
-            {testimonials.map((t, index) => (
-              <article
-                key={index}
-                className="group relative flex flex-col backdrop-blur-xl bg-white/70 dark:bg-gray-800/70 p-6 md:p-8 rounded-2xl shadow-xl dark:shadow-gray-900/50 border border-white/20 dark:border-gray-700/30 hover:shadow-[0_25px_60px_-25px_rgba(59,130,246,0.35)] transition-all duration-300 hover:-translate-y-1"
-                style={{ animationDelay: `${index * 0.05}s` }}
-              >
-                <div className="absolute top-6 right-6 opacity-80 group-hover:opacity-100 transition-opacity">
-                  <svg
-                    className="w-10 h-10 text-primary-400/40"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                  </svg>
-                </div>
-                <StarRating stars={t.rating} />
-                <blockquote className="mt-4 flex-1 text-gray-700 dark:text-gray-300 leading-relaxed">
-                  &ldquo;{t.quote}&rdquo;
-                </blockquote>
-                <footer className="mt-6 pt-4 border-t border-gray-200/50 dark:border-gray-600/50">
-                  <p className="font-semibold text-gray-900 dark:text-white">{t.name}</p>
-                  <p className="text-sm text-primary-600 dark:text-primary-400">{t.role}</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{t.company}</p>
-                </footer>
-              </article>
-            ))}
-          </div>
+          {error && (
+            <p className="text-center text-amber-600 dark:text-amber-400 mb-8">
+              {error}
+            </p>
+          )}
+          {loading ? (
+            <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 ${isVisible ? 'animate-fade-in' : ''}`}>
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div
+                  key={i}
+                  className="h-64 rounded-2xl bg-gray-200/50 dark:bg-gray-700/30 animate-pulse"
+                  style={{ animationDelay: `${i * 0.05}s` }}
+                />
+              ))}
+            </div>
+          ) : testimonials.length === 0 ? (
+            <p className="text-center text-gray-600 dark:text-gray-400 py-12">
+              No testimonials to display yet.
+            </p>
+          ) : (
+            <div
+              className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 ${isVisible ? 'animate-fade-in' : ''}`}
+            >
+              {testimonials.map((t, index) => (
+                <article
+                  key={t.id}
+                  className="group relative flex flex-col backdrop-blur-xl bg-white/70 dark:bg-gray-800/70 p-6 md:p-8 rounded-2xl shadow-xl dark:shadow-gray-900/50 border border-white/20 dark:border-gray-700/30 hover:shadow-[0_25px_60px_-25px_rgba(59,130,246,0.35)] transition-all duration-300 hover:-translate-y-1"
+                  style={{ animationDelay: `${index * 0.05}s` }}
+                >
+                  <div className="absolute top-6 right-6 opacity-80 group-hover:opacity-100 transition-opacity">
+                    <svg
+                      className="w-10 h-10 text-primary-400/40"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                    </svg>
+                  </div>
+                  <StarRating stars={t.rating} />
+                  <blockquote className="mt-4 flex-1 text-gray-700 dark:text-gray-300 leading-relaxed">
+                    &ldquo;{t.quote}&rdquo;
+                  </blockquote>
+                  <footer className="mt-6 pt-4 border-t border-gray-200/50 dark:border-gray-600/50">
+                    <p className="font-semibold text-gray-900 dark:text-white">{t.name}</p>
+                    <p className="text-sm text-primary-600 dark:text-primary-400">{t.role}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">{t.company}</p>
+                  </footer>
+                </article>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
