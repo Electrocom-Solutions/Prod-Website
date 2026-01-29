@@ -34,7 +34,7 @@ const fallbackProjects: MenuItem[] = [
     image: generateProjectIcon('electrocom-erp', 1),
     link: '#',
     title: 'Electrocom ERP',
-    description: 'Internal ERP system for managing operations and manpower'
+    description: 'Internal ERP system for managing operations and workflows'
   },
   {
     image: generateProjectIcon('shree-bada-paliwal', 2),

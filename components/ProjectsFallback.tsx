@@ -1,5 +1,7 @@
 'use client'
 
+import Icon from './Icon'
+
 interface ProjectsFallbackProps {
   items: Array<{
     image: string
@@ -14,7 +16,9 @@ export default function ProjectsFallback({ items }: ProjectsFallbackProps) {
     <div className="flex items-center justify-center h-full p-8">
       <div className="text-center max-w-md backdrop-blur-xl bg-white/10 dark:bg-gray-800/10 rounded-2xl border border-white/20 dark:border-gray-700/30 p-8">
         <div className="mb-6">
-          <div className="text-6xl mb-4">🎨</div>
+          <div className="mb-4 flex items-center justify-center text-primary-300">
+            <Icon name="document-text" className="w-16 h-16" aria-hidden="true" />
+          </div>
           <h3 className="text-2xl font-bold text-white mb-2">3D Interactive Menu</h3>
           <p className="text-gray-300 text-sm mb-4">
             The InfiniteMenu component requires the <code className="text-primary-400">gl-matrix</code> package to be installed.

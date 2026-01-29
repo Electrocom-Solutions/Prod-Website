@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import SectionParticles from '@/components/SectionParticles'
 import QuoteModal from '@/components/QuoteModal'
+import Icon from '@/components/Icon'
 
 export default function CloudArchitecturePage() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -18,7 +19,9 @@ export default function CloudArchitecturePage() {
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <div className="text-6xl mb-6">☁️</div>
+          <div className="mb-6 flex items-center justify-center text-primary-700 dark:text-primary-300">
+            <Icon name="cloud" className="w-16 h-16" aria-hidden="true" />
+          </div>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 dark:text-white mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-400 dark:from-primary-400 dark:to-primary-300">
             Cloud Architecture
           </h1>
@@ -54,7 +57,7 @@ export default function CloudArchitecturePage() {
                 >
                   Get a Quote
                 </button>
-                <Link href="/services/software-solutions" className="px-8 py-4 rounded-xl border-2 border-primary-600 dark:border-primary-400 text-primary-600 dark:text-primary-400 font-semibold hover:bg-primary-600 dark:hover:bg-primary-400 hover:text-white dark:hover:text-white transition-all">Back to Services</Link>
+                <Link href="/services" className="px-8 py-4 rounded-xl border-2 border-primary-600 dark:border-primary-400 text-primary-600 dark:text-primary-400 font-semibold hover:bg-primary-600 dark:hover:bg-primary-400 hover:text-white dark:hover:text-white transition-all">Back to Services</Link>
               </div>
             </div>
           </div>

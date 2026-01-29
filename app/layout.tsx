@@ -10,8 +10,8 @@ import GlobalParticles from '@/components/GlobalParticles'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Electrocom - IT, Software & Manpower Solutions',
-  description: 'Your Trusted Partner for IT, Software & Manpower Solutions. Advanced software development, IT networking, manpower supply, and hardware maintenance.',
+  title: 'Electrocom - IT & Software Solutions',
+  description: 'Your Trusted Partner for IT & Software Solutions. Custom software development, web and mobile apps, cloud solutions, and IT consulting.',
   icons: {
     icon: [
       { url: '/favicon/favicon.ico', sizes: 'any' },

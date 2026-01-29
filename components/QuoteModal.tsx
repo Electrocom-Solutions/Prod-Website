@@ -343,22 +343,22 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
 
   // Map frontend service values to backend service values
   const serviceValueMap: Record<string, string> = {
-    'hardware-maintenance': 'Hardware Solutions',
     'software-solutions': 'Software Solutions',
-    'network-solutions': 'Network Solutions',
-    'manpower-supply': 'Manpower Solutions',
     'custom-development': 'Custom Development',
-    'consulting': 'AI Solutions',
+    'web-development': 'Web Development',
+    'mobile-apps': 'Mobile Apps',
+    'cloud-solutions': 'Cloud Solutions',
+    'consulting': 'Consulting',
     'other': 'Other'
   }
 
   const serviceOptions = [
-    { value: 'hardware-maintenance', label: 'Hardware Maintenance' },
     { value: 'software-solutions', label: 'Software Solutions' },
-    { value: 'network-solutions', label: 'Network Solutions' },
-    { value: 'manpower-supply', label: 'Manpower Supply' },
     { value: 'custom-development', label: 'Custom Development' },
-    { value: 'consulting', label: 'Consulting' },
+    { value: 'web-development', label: 'Web Development' },
+    { value: 'mobile-apps', label: 'Mobile Apps' },
+    { value: 'cloud-solutions', label: 'Cloud Solutions' },
+    { value: 'consulting', label: 'IT Consulting' },
     { value: 'other', label: 'Other' }
   ]
 

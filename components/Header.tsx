@@ -14,11 +14,9 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isServicesOpen, setIsServicesOpen] = useState(false)
   const [isAuthDropdownOpen, setIsAuthDropdownOpen] = useState(false)
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
-  const servicesTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const authDropdownRef = useRef<HTMLDivElement>(null)
 
   const handleNavigation = (href: string) => {
@@ -188,76 +186,13 @@ export default function Header() {
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 dark:bg-primary-400 group-hover:w-full transition-all duration-300"></span>
             </button>
             
-            {/* Services Dropdown */}
-            <div 
-              className="relative"
-              onMouseEnter={() => {
-                if (servicesTimeoutRef.current) {
-                  clearTimeout(servicesTimeoutRef.current)
-                  servicesTimeoutRef.current = null
-                }
-                setIsServicesOpen(true)
-              }}
-              onMouseLeave={() => {
-                servicesTimeoutRef.current = setTimeout(() => {
-                  setIsServicesOpen(false)
-                }, 150)
-              }}
+            <Link
+              href="/services"
+              className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300 relative group"
             >
-              <button
-                className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300 relative group flex items-center gap-1 py-2"
-              >
-                Services
-                <svg 
-                  className={`w-4 h-4 transition-transform duration-200 ${isServicesOpen ? 'transform rotate-180' : ''}`}
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 dark:bg-primary-400 group-hover:w-full transition-all duration-300"></span>
-              </button>
-              
-              {isServicesOpen && (
-                <div 
-                  className="absolute top-full left-0 pt-1 w-56 z-50"
-                  onMouseEnter={() => {
-                    if (servicesTimeoutRef.current) {
-                      clearTimeout(servicesTimeoutRef.current)
-                      servicesTimeoutRef.current = null
-                    }
-                  }}
-                >
-                  <div className="rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-2xl py-2">
-                    <Link
-                      href="/services/software-solutions"
-                      className="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-                    >
-                      Software Solutions
-                    </Link>
-                    <Link
-                      href="/services/hardware-maintenance"
-                      className="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-                    >
-                      Hardware Maintenance
-                    </Link>
-                    <Link
-                      href="/services/network-solutions"
-                      className="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-                    >
-                      Network Solutions
-                    </Link>
-                    <Link
-                      href="/services/manpower-supply"
-                      className="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-                    >
-                      Manpower Supply
-                    </Link>
-                  </div>
-                </div>
-              )}
-            </div>
+              Services
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 dark:bg-primary-400 group-hover:w-full transition-all duration-300"></span>
+            </Link>
 
             <Link 
               href="/projects" 
@@ -567,67 +502,13 @@ export default function Header() {
                 Home
               </button>
               
-              {/* Mobile Services Dropdown */}
-              <div>
-                <button
-                  onClick={() => setIsServicesOpen(!isServicesOpen)}
-                  className="text-left text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors py-2 flex items-center justify-between w-full"
-                >
-                  <span>Services</span>
-                  <svg 
-                    className={`w-4 h-4 transition-transform duration-200 ${isServicesOpen ? 'transform rotate-180' : ''}`}
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                {isServicesOpen && (
-                  <div className="pl-4 mt-2 space-y-2">
-                    <Link
-                      href="/services/software-solutions"
-                      onClick={() => {
-                        setIsMenuOpen(false)
-                        setIsServicesOpen(false)
-                      }}
-                      className="block text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors py-1"
-                    >
-                      Software Solutions
-                    </Link>
-                    <Link
-                      href="/services/hardware-maintenance"
-                      onClick={() => {
-                        setIsMenuOpen(false)
-                        setIsServicesOpen(false)
-                      }}
-                      className="block text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors py-1"
-                    >
-                      Hardware Maintenance
-                    </Link>
-                    <Link
-                      href="/services/network-solutions"
-                      onClick={() => {
-                        setIsMenuOpen(false)
-                        setIsServicesOpen(false)
-                      }}
-                      className="block text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors py-1"
-                    >
-                      Network Solutions
-                    </Link>
-                    <Link
-                      href="/services/manpower-supply"
-                      onClick={() => {
-                        setIsMenuOpen(false)
-                        setIsServicesOpen(false)
-                      }}
-                      className="block text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors py-1"
-                    >
-                      Manpower Supply
-                    </Link>
-                  </div>
-                )}
-              </div>
+              <Link
+                href="/services"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-left text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors py-2 block"
+              >
+                Services
+              </Link>
 
               <Link 
                 href="/projects" 

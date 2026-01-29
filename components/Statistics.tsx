@@ -3,12 +3,13 @@
 import { useEffect, useRef, useState } from 'react'
 import SectionParticles from './SectionParticles'
 import { portfolioAPI } from '@/lib/api'
+import Icon, { type IconName } from './Icon'
 
 interface StatItem {
   label: string
   value: number
   suffix?: string
-  icon: string
+  icon: IconName
   gradient: string
 }
 
@@ -21,8 +22,8 @@ const defaultGradients = [
   'from-blue-700 to-blue-800',
 ]
 
-// Default icons (emoji) as fallback
-const defaultIcons = ['😊', '🚀', '⚡', '⭐', '🎯']
+// Default icons (SVG) as fallback
+const defaultIcons: IconName[] = ['users', 'rocket', 'bolt', 'star', 'chart-bar']
 
 export default function Statistics() {
   const [isVisible, setIsVisible] = useState(false)
@@ -55,7 +56,7 @@ export default function Statistics() {
               label: stat.title || 'Statistic',
               value: numericValue,
               suffix: hasSuffix ? '+' : undefined,
-              icon: defaultIcons[index % defaultIcons.length], // Use default emoji icons
+              icon: defaultIcons[index % defaultIcons.length], // Use default SVG icons
               gradient: defaultGradients[index % defaultGradients.length], // Cycle through gradients
             }
           })
@@ -167,41 +168,41 @@ export default function Statistics() {
     <section 
       ref={sectionRef}
       id="statistics" 
-      className="py-20 relative overflow-hidden"
+      className="py-10 relative overflow-hidden"
     >
       <SectionParticles particleCount={150} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {isLoading ? (
           // Loading state - show skeleton
-          <div className={`grid md:grid-cols-3 gap-8 lg:gap-12`}>
+          <div className={`grid md:grid-cols-3 gap-6 lg:gap-8`}>
             {[1, 2, 3].map((index) => (
               <div
                 key={index}
-                className="backdrop-blur-xl bg-white/90 dark:bg-gray-800/80 p-8 rounded-3xl shadow-2xl border-2 border-white/30 dark:border-gray-700/40 animate-pulse"
+                className="backdrop-blur-xl bg-white/90 dark:bg-gray-800/80 p-6 rounded-2xl shadow-2xl border-2 border-white/30 dark:border-gray-700/40 animate-pulse"
               >
-                <div className="h-16 w-16 bg-gray-300 dark:bg-gray-600 rounded-full mx-auto mb-6"></div>
-                <div className="h-12 w-24 bg-gray-300 dark:bg-gray-600 rounded mx-auto mb-4"></div>
-                <div className="h-6 w-32 bg-gray-300 dark:bg-gray-600 rounded mx-auto"></div>
+                <div className="h-12 w-12 bg-gray-300 dark:bg-gray-600 rounded-full mx-auto mb-4"></div>
+                <div className="h-10 w-20 bg-gray-300 dark:bg-gray-600 rounded mx-auto mb-3"></div>
+                <div className="h-5 w-28 bg-gray-300 dark:bg-gray-600 rounded mx-auto"></div>
               </div>
             ))}
           </div>
         ) : (
-        <div className={`grid md:grid-cols-3 gap-8 lg:gap-12 ${isVisible ? 'animate-fade-in' : ''}`}>
+        <div className={`grid md:grid-cols-3 gap-6 lg:gap-8 ${isVisible ? 'animate-fade-in' : ''}`}>
             {displayStats.map((stat, index) => (
             <div
               key={index}
-              className="group relative backdrop-blur-xl bg-white/90 dark:bg-gray-800/80 p-8 rounded-3xl shadow-2xl dark:shadow-gray-900/50 hover:shadow-3xl dark:hover:shadow-gray-900 transition-all duration-700 transform hover:-translate-y-4 border-2 border-white/30 dark:border-gray-700/40 backdrop-saturate-150 text-center overflow-hidden"
+              className="group relative backdrop-blur-xl bg-white/90 dark:bg-gray-800/80 p-6 rounded-2xl shadow-2xl dark:shadow-gray-900/50 hover:shadow-3xl dark:hover:shadow-gray-900 transition-all duration-700 transform hover:-translate-y-2 border-2 border-white/30 dark:border-gray-700/40 backdrop-saturate-150 text-center overflow-hidden"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Animated gradient orb */}
               <div className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${stat.gradient} opacity-0 group-hover:opacity-20 rounded-full blur-3xl transition-opacity duration-700 transform group-hover:scale-125`}></div>
               
               <div className="relative z-10">
-                <div className="text-6xl mb-6 transform group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
-                  {stat.icon}
+                <div className="mb-4 transform group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 flex items-center justify-center text-primary-700 dark:text-primary-300">
+                  <Icon name={stat.icon} className="w-12 h-12" aria-hidden="true" />
                 </div>
-                <div className="mb-4">
-                  <div className={`text-6xl md:text-7xl font-extrabold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-2`}>
+                <div className="mb-3">
+                  <div className={`text-5xl md:text-6xl font-extrabold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-1`}>
                     {stat.value}{stat.suffix || ''}
                   </div>
                 </div>
