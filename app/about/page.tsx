@@ -4,20 +4,49 @@ import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import SectionParticles from '@/components/SectionParticles'
 import Icon from '@/components/Icon'
+import type { IconName } from '@/components/Icon'
 import AboutUs from '@/components/AboutUs'
 import ServicesOverview from '@/components/ServicesOverview'
 import ContactUs from '@/components/ContactUs'
+import { portfolioAPI } from '@/lib/api'
 
-const stats = [
-  { label: 'Trusted Clients', value: '50+', icon: 'users' as const },
-  { label: 'Products', value: '5+', icon: 'cube' as const },
-  { label: 'Projects Delivered', value: '20+', icon: 'rocket' as const },
-  { label: 'Ongoing Projects', value: '10+', icon: 'chart-bar' as const },
-]
+const TRACK_RECORD_KEYS = ['trusted_clients', 'projects_home', 'projects_ongoing', 'products_home'] as const
+const TRACK_RECORD_DEFAULTS: Record<(typeof TRACK_RECORD_KEYS)[number], { label: string; icon: IconName }> = {
+  trusted_clients: { label: 'Trusted Clients', icon: 'users' },
+  projects_home: { label: 'Projects Delivered', icon: 'rocket' },
+  projects_ongoing: { label: 'Ongoing Projects', icon: 'chart-bar' },
+  products_home: { label: 'Products', icon: 'cube' },
+}
+
+type TrackRecordStat = { label: string; value: string; icon: IconName }
 
 export default function AboutPage() {
   const [isVisible, setIsVisible] = useState(false)
+  const [stats, setStats] = useState<TrackRecordStat[]>(() =>
+    TRACK_RECORD_KEYS.map((key) => ({
+      label: TRACK_RECORD_DEFAULTS[key].label,
+      value: '—',
+      icon: TRACK_RECORD_DEFAULTS[key].icon,
+    }))
+  )
   const statsRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    portfolioAPI.getStatistics().then(({ success, statistics }) => {
+      if (!success || !statistics?.length) return
+      setStats((prev) =>
+        TRACK_RECORD_KEYS.map((key, index) => {
+          const tile = statistics.find((s) => s.key === key)
+          const def = TRACK_RECORD_DEFAULTS[key]
+          return {
+            label: tile?.title ?? def.label,
+            value: (tile?.value ?? '').trim() || '—',
+            icon: def.icon,
+          }
+        })
+      )
+    })
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
