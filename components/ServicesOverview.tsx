@@ -58,7 +58,13 @@ const services: ServiceItem[] = [
   },
 ]
 
-export default function ServicesOverview() {
+type ServicesOverviewProps = {
+  badge?: string
+  title?: string
+  subtitle?: string
+}
+
+export default function ServicesOverview({ badge = 'Services', title = 'End-to-End Technology Solutions', subtitle = 'From concept and planning to deployment and ongoing support, we deliver complete solutions that help teams move faster and operate with confidence.' }: ServicesOverviewProps = {}) {
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
 
@@ -77,32 +83,34 @@ export default function ServicesOverview() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-6 relative overflow-hidden min-h-0">
+    <section ref={sectionRef} className="py-12 lg:py-16 relative overflow-hidden min-h-0">
       <SectionParticles particleCount={160} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-6">
-          <span className="inline-block text-sm font-medium text-primary-600 dark:text-primary-400 bg-primary-100/50 dark:bg-primary-900/30 rounded-full px-4 py-2 mb-3">
-            Services
+        {/* Section header — clearly above the card grid with comfortable spacing */}
+        <div className="text-center mb-10 lg:mb-14">
+          <span className="inline-block text-sm font-medium text-primary-600 dark:text-primary-400 bg-primary-100/50 dark:bg-primary-900/30 rounded-full px-4 py-2 mb-4">
+            {badge}
           </span>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-3 bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-400 dark:from-primary-400 dark:to-primary-300">
-            End-to-End Technology Solutions
+          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-400 dark:from-primary-400 dark:to-primary-300">
+            {title}
           </h2>
           <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            From concept and planning to deployment and ongoing support, we deliver complete solutions that help teams move faster and operate with confidence.
+            {subtitle}
           </p>
         </div>
 
-        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ${isVisible ? 'animate-fade-in' : ''}`}>
+        {/* 2-row × 3-column grid — comfortable gaps, consistent card height */}
+        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch ${isVisible ? 'animate-fade-in' : ''}`}>
           {services.map((service) => (
             <div
               key={service.title}
-              className="group relative rounded-xl border border-white/20 dark:border-gray-700/30 backdrop-blur-xl bg-white/70 dark:bg-gray-800/70 p-4 shadow-2xl dark:shadow-gray-900/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_-25px_rgba(59,130,246,0.45)] overflow-hidden flex flex-col min-h-0"
+              className="group relative rounded-xl border border-white/20 dark:border-gray-700/30 backdrop-blur-xl bg-white/70 dark:bg-gray-800/70 p-5 lg:p-6 shadow-2xl dark:shadow-gray-900/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_-25px_rgba(59,130,246,0.45)] overflow-hidden flex flex-col min-h-0"
             >
               {/* subtle gradient glow */}
               <div className={`absolute -top-24 -right-24 h-64 w-64 rounded-full bg-gradient-to-br ${service.gradient} blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
-              {/* icon + title + description */}
+              {/* icon + title + description — flex-1 for consistent height, Learn More at bottom */}
               <div className="relative flex-1 min-h-0 flex flex-col">
                 <div className="inline-flex items-center justify-center rounded-xl border border-white/20 dark:border-gray-700/30 bg-gradient-to-br from-white/10 to-white/5 dark:from-white/5 dark:to-white/0 p-2 shadow-lg w-fit">
                   <div className="text-primary-700 dark:text-primary-300 transform transition-transform duration-300 group-hover:scale-110">
@@ -110,16 +118,16 @@ export default function ServicesOverview() {
                   </div>
                 </div>
 
-                <h3 className="mt-3 text-lg md:text-xl font-bold text-gray-900 dark:text-white">
+                <h3 className="mt-4 text-lg md:text-xl font-bold text-gray-900 dark:text-white">
                   {service.title}
                 </h3>
-                <p className="mt-1.5 text-sm text-gray-600 dark:text-gray-400 leading-snug line-clamp-3">
+                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 leading-snug line-clamp-4">
                   {service.description}
                 </p>
               </div>
 
-              {/* CTA link */}
-              <div className="relative mt-3 pt-3 border-t border-gray-200/50 dark:border-gray-700/40 flex-shrink-0">
+              {/* CTA link — aligned at bottom of card */}
+              <div className="relative mt-4 pt-4 border-t border-gray-200/50 dark:border-gray-700/40 flex-shrink-0">
                 <Link
                   href={service.href}
                   className="inline-flex items-center gap-2 text-sm font-semibold text-primary-700 dark:text-primary-300 hover:text-primary-600 dark:hover:text-primary-200 transition-colors cursor-pointer"

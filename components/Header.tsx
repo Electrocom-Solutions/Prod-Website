@@ -178,19 +178,19 @@ export default function Header() {
 
           {/* Center - Navigation Menu - Perfectly Centered */}
           <nav className="hidden lg:flex items-center justify-center space-x-8">
-            <button
-              onClick={() => handleNavigation('/')}
-              className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300 relative group"
-            >
-              Home
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 dark:bg-primary-400 group-hover:w-full transition-all duration-300"></span>
-            </button>
-            
             <Link
               href="/services"
               className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300 relative group"
             >
               Services
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 dark:bg-primary-400 group-hover:w-full transition-all duration-300"></span>
+            </Link>
+
+            <Link
+              href="/technologies"
+              className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300 relative group"
+            >
+              Technologies
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 dark:bg-primary-400 group-hover:w-full transition-all duration-300"></span>
             </Link>
 
@@ -201,13 +201,14 @@ export default function Header() {
               Projects
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 dark:bg-primary-400 group-hover:w-full transition-all duration-300"></span>
             </Link>
-            <button
-              onClick={() => handleNavigation('#contact')}
+
+            <Link
+              href="/about"
               className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300 relative group"
             >
-              Contact
+              About
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 dark:bg-primary-400 group-hover:w-full transition-all duration-300"></span>
-            </button>
+            </Link>
           </nav>
 
           {/* Right Side - Action Buttons - Rightmost */}
@@ -492,16 +493,6 @@ export default function Header() {
               <span className="text-xs font-semibold text-yellow-800 dark:text-yellow-300">MSME Certified</span>
             </div>
             <nav className="flex flex-col space-y-4">
-              <button
-                onClick={() => {
-                  handleNavigation('/')
-                  setIsMenuOpen(false)
-                }}
-                className="text-left text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors py-2"
-              >
-                Home
-              </button>
-              
               <Link
                 href="/services"
                 onClick={() => setIsMenuOpen(false)}
@@ -510,22 +501,29 @@ export default function Header() {
                 Services
               </Link>
 
+              <Link
+                href="/technologies"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-left text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors py-2 block"
+              >
+                Technologies
+              </Link>
+
               <Link 
                 href="/projects" 
-                className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors py-2"
+                className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors py-2 block"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Projects
               </Link>
-              <button
-                onClick={() => {
-                  handleNavigation('#contact')
-                  setIsMenuOpen(false)
-                }}
-                className="text-left text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors py-2"
+
+              <Link
+                href="/about"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-left text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors py-2 block"
               >
-                Contact
-              </button>
+                About
+              </Link>
             </nav>
             
             {/* Mobile Action Buttons */}

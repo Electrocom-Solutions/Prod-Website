@@ -3,10 +3,8 @@
 import { useEffect, useState, Suspense } from 'react'
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import Hero from '@/components/Hero'
-import AboutUs from '@/components/AboutUs'
 import OurExpertise from '@/components/OurExpertise'
 import ServicesOverview from '@/components/ServicesOverview'
-import Technologies from '@/components/Technologies'
 import IndustriesWeServe from '@/components/IndustriesWeServe'
 import Statistics from '@/components/Statistics'
 import ClientSlider from '@/components/ClientSlider'
@@ -141,9 +139,7 @@ function HomeContent() {
       <ServicesOverview />
       <Statistics />
       <ClientSlider />
-      <AboutUs />
       <OurExpertise />
-      <Technologies />
       <IndustriesWeServe />
       <ContactUs />
     </div>
